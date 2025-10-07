@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>oa Logica — Ontwikkelend & Automatiserend</title>
+  <style>
+    :root{--accent:#2563eb;--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--pro:#7c3aed;--basic:#22c55e;--kiosk:#f59e0b}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6eef8;background:linear-gradient(180deg,#071022 0%,#071632 60%);scroll-behavior:smooth;}
+    .container{max-width:1200px;margin:32px auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    h1{margin:0;font-size:22px}
+    p.lead{color:var(--muted);margin:6px 0 0}
+    nav a{color:var(--muted);margin-left:18px;text-decoration:none;font-size:15px}
+    nav a:hover{color:white}
+    .hero{margin-top:28px}
+    .card{background:rgba(255,255,255,0.03);padding:24px;border-radius:16px;box-shadow:0 6px 18px rgba(2,6,23,0.6);margin-bottom:22px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:8px;background:var(--accent);color:white;text-decoration:none;cursor:pointer;transition:0.2s}
+    .btn:hover{opacity:0.9;transform:translateY(-2px)}
+    .muted{color:var(--muted);font-size:14px}
+    footer{margin-top:40px;text-align:center;color:var(--muted);font-size:13px}
+    .pricing-grid,.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:18px}
+    .price-card,.product-card{padding:22px;border-radius:16px;box-shadow:0 6px 18px rgba(2,6,23,0.6);background:rgba(255,255,255,0.05);display:flex;flex-direction:column;align-items:flex-start;transition:0.3s}
+    .price-card:hover,.product-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.08)}
+    .price-card.basic{border-top:4px solid var(--basic)}
+    .price-card.standard{border-top:4px solid var(--accent)}
+    .price-card.pro{border-top:4px solid var(--pro)}
+    .product-card.qr{border-top:4px solid var(--accent)}
+    .product-card.kiosk{border-top:4px solid var(--kiosk)}
+    .price{font-size:28px;font-weight:700;margin:6px 0}
+    .plan-name{font-size:20px;font-weight:600}
+    .features{margin:12px 0;list-style:none;padding:0}
+    .features li{margin:6px 0;color:var(--muted)}
+    img.product-img{width:100%;border-radius:12px;margin-bottom:12px;object-fit:cover;height:180px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">LG</div>
+        <div>
+          <h1>oa Logica</h1>
+          <div class="muted">Ontwikkelend &amp; automatisirend — innovatieve horecaoplossingen</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#producten">Producten</a>
+        <a href="#prijzen">Prijzen</a>
+        <a href="#voorwaarden">Voorwaarden</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="producten">
+        <div class="card">
+          <h2>Onze Producten</h2>
+          <p class="lead">Bij oa Logica combineren we software en hardware om jouw horeca te automatiseren. Ontdek onze oplossingen hieronder:</p>
+          <div class="product-grid">
+            <div class="product-card qr">
+              <img class="product-img" src="https://images.unsplash.com/photo-1601972599720-b7f4f14a4b52?auto=format&fit=crop&w=800&q=80" alt="QR bestelsoftware"/>
+              <h3>QR Bestelsoftware</h3>
+              <p class="muted">De QR-bestelsoftware maakt het eenvoudig voor klanten om te bestellen door een QR-code te scannen. Ideaal voor cafés, restaurants en hotels.</p>
+              <ul class="features">
+                <li>✔ Bestellen via smartphone</li>
+                <li>✔ Real-time overzicht in de keuken</li>
+                <li>✔ Adminpaneel voor orderbeheer</li>
+                <li>✔ Integratie met kassasystemen</li>
+              </ul>
+              <a class="btn" href="#qr-detail">Bekijk product</a>
+            </div>
+
+            <div class="product-card kiosk">
+              <img class="product-img" src="https://images.unsplash.com/photo-1599297914194-9c9e6c36c26b?auto=format&fit=crop&w=800&q=80" alt="Self-order kiosk"/>
+              <h3>Self-Order Kiosk</h3>
+              <p class="muted">Onze self-order kiosk met ingebouwd kassasysteem maakt het mogelijk voor klanten om zelf hun bestelling te plaatsen, af te rekenen en de wachttijd te verkorten.</p>
+              <ul class="features">
+                <li>✔ Touchscreen interface</li>
+                <li>✔ QR- en pinbetaling ondersteuning</li>
+                <li>✔ Beheersoftware inbegrepen</li>
+                <li>✔ Geschikt voor restaurants & fastfoodzaken</li>
+              </ul>
+              <a class="btn" href="#kiosk-detail">Bekijk product</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="prijzen" class="card">
+        <h3>Prijzen</h3>
+        <p class="lead">Kies het pakket dat bij jouw zaak past.</p>
+        <div class="pricing-grid">
+          <div class="price-card basic">
+            <div class="plan-name">Basic</div>
+            <div class="price">€29,99 <span class="muted">/ maand</span></div>
+            <ul class="features">
+              <li>✔ QR-bestelpagina</li>
+              <li>✔ Basis adminpaneel</li>
+              <li>✔ 1 vestiging</li>
+            </ul>
+            <a class="btn" href="mailto:sales@oalogica.nl?subject=Aanmelding Basic">Nu abonneren</a>
+          </div>
+
+          <div class="price-card standard">
+            <div class="plan-name">Standaard</div>
+            <div class="price">€39,99 <span class="muted">/ maand</span></div>
+            <ul class="features">
+              <li>✔ Alles uit Basic</li>
+              <li>✔ Uitgebreid dashboard</li>
+              <li>✔ Rapportages</li>
+            </ul>
+            <a class="btn" href="mailto:sales@oalogica.nl?subject=Aanmelding Standaard">Nu abonneren</a>
+          </div>
+
+          <div class="price-card pro">
+            <div class="plan-name">Pro</div>
+            <div class="price">€49,99 <span class="muted">/ maand</span></div>
+            <ul class="features">
+              <li>✔ Alles uit Standaard</li>
+              <li>✔ Meerdere vestigingen</li>
+              <li>✔ Premium support</li>
+            </ul>
+            <a class="btn" href="mailto:sales@oalogica.nl?subject=Aanmelding Pro">Nu abonneren</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="qr-detail" class="card">
+        <h2>QR Bestelsoftware — Digitale Bestelervaring</h2>
+        <p class="lead">Met de QR bestelsoftware van oa Logica kunnen klanten eenvoudig een tafelmenu scannen, bestellen en afrekenen — volledig contactloos.</p>
+        <ul class="features">
+          <li>✔ Makkelijk te integreren met bestaande systemen</li>
+          <li>✔ Werkt op alle apparaten zonder installatie</li>
+          <li>✔ Eenvoudig dashboard voor keuken en bediening</li>
+          <li>✔ Volledig aanpasbaar met jouw branding</li>
+        </ul>
+        <a class="btn" href="mailto:sales@oalogica.nl?subject=Informatie QR Software">Vraag meer info</a>
+      </section>
+
+      <section id="kiosk-detail" class="card">
+        <h2>Self-Order Kiosk — Volledige Automatisering</h2>
+        <p class="lead">De oa Logica self-order kiosk combineert hardware en software om de klantenservice te versnellen en personeel te ontlasten. Verkrijgbaar in verschillende formaten en designs.</p>
+        <ul class="features">
+          <li>✔ 21” en 27” touchscreen beschikbaar</li>
+          <li>✔ Volledige kassakoppeling en printerondersteuning</li>
+          <li>✔ Meertalige interface</li>
+          <li>✔ Statistieken en omzetrapportage in real-time</li>
+          <li>✔ Optioneel branding in jouw huisstijl</li>
+        </ul>
+        <a class="btn" href="mailto:sales@oalogica.nl?subject=Self Order Kiosk">Vraag offerte aan</a>
+      </section>
+
+      <section id="voorwaarden" class="card">
+        <h3>Algemene Voorwaarden</h3>
+        <p class="muted">Deze algemene voorwaarden zijn van toepassing op alle diensten van oa Logica.</p>
+        <ul class="muted">
+          <li><strong>Dienstverlening:</strong> oa Logica levert bestelsoftware en hardware-oplossingen toegankelijk via QR-code en kiosken.</li>
+          <li><strong>Abonnement:</strong> De klant sluit een maandabonnement af. Opzeggen kan maandelijks met een opzegtermijn van 30 dagen.</li>
+          <li><strong>Betaling:</strong> Betaling geschiedt via automatische incasso (SEPA) of creditcard. Bij uitblijven van betaling kan de toegang tot de software worden geblokkeerd.</li>
+          <li><strong>Aansprakelijkheid:</strong> oa Logica is niet aansprakelijk voor storingen veroorzaakt door internetverbindingen of apparaten van de klant. De aansprakelijkheid van oa Logica is altijd beperkt tot het bedrag van het lopende abonnement.</li>
+          <li><strong>Gebruik:</strong> Het is de klant niet toegestaan de software of hardware te kopiëren, door te verkopen of te misbruiken.</li>
+          <li><strong>Beëindiging:</strong> oa Logica behoudt zich het recht voor om het abonnement eenzijdig te beëindigen bij misbruik of wanbetaling.</li>
+          <li><strong>Toepasselijk recht:</strong> Op deze voorwaarden is Nederlands recht van toepassing. Geschillen worden beslecht door de rechtbank in de vestigingsplaats van oa Logica.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3>Privacyverklaring</h3>
+        <p class="muted">oa Logica respecteert jouw privacy en gaat zorgvuldig om met persoonsgegevens conform de AVG (Algemene Verordening Gegevensbescherming).</p>
+        <ul class="muted">
+          <li><strong>Verzamelde gegevens:</strong> Naam, e-mailadres, bedrijfsgegevens en betaalgegevens.</li>
+          <li><strong>Doel verwerking:</strong> Deze gegevens worden gebruikt voor het aanmaken van accounts, het beheren van abonnementen, het versturen van facturen en het verlenen van klantenservice.</li>
+          <li><strong>Bewaartermijn:</strong> Gegevens worden bewaard zolang het abonnement loopt en tot maximaal 2 jaar na beëindiging, tenzij wettelijke verplichtingen een langere termijn vereisen.</li>
+          <li><strong>Delen met derden:</strong> Persoonsgegevens worden alleen gedeeld met betaalproviders (bijvoorbeeld Stripe of Mollie) en uitsluitend voor het uitvoeren van betalingen.</li>
+          <li><strong>Beveiliging:</strong> oa Logica neemt passende maatregelen om persoonsgegevens te beveiligen tegen verlies of onrechtmatig gebruik.</li>
+          <li><strong>Rechten van betrokkenen:</strong> Klanten hebben recht op inzage, correctie en verwijdering van hun gegevens. Verzoeken kunnen worden gericht aan support@oalogica.nl.</li>
+          <li><strong>Cookies:</strong> oa Logica gebruikt alleen functionele cookies die noodzakelijk zijn voor het functioneren van de website.</li>
+        </ul>
+      </section>
+
+      <section id="contact" class="card">
+        <h3>Contact</h3>
+        <p class="lead">Wil je meer weten of een offerte ontvangen? Neem gerust contact met ons op.</p>
+        <ul class="muted">
+          <li>Email: <a href="mailto:info@oalogica.nl">info@oalogica.nl</a></li>
+          <li>Telefoon: 06-12345678</li>
+          <li>Locatie: Amsterdam, Nederland</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <div class="muted">© oa Logica — Ontwikkelend &amp; automatisirend</div>
+    </footer>
+  </div>
+</body>
+</html>
