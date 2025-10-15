@@ -499,7 +499,6 @@
     </div>
 
     <script>
-        // --- DATA ---
         const PRODUCTS = {
             kiosk: {
                 key: 'kiosk',
@@ -533,18 +532,16 @@
             }
         };
 
-        // --- HELPERS ---
         const € = v => {
             const n = Number(v) || 0;
             return '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         };
 
         function getQueryParam(name) {
-            const p = new URLSearchParams(window.location.search);
-            return p.get(name);
+            return new URLSearchParams(window.location.search).get(name);
         }
 
-        // --- ELEMENTS ---
+        // Elements
         const productImg = document.getElementById('productImg');
         const productName = document.getElementById('productName');
         const productDesc = document.getElementById('productDesc');
@@ -581,21 +578,12 @@
         const orderResult = document.getElementById('orderResult');
         const quickBack = document.getElementById('quickBack');
 
-        // --- Safe product selection ---
-        let currentProductKey = 'kiosk'; // default
-
-        try {
-            const url = new URL(window.location.href);
-            const param = url.searchParams.get('product');
-            if (param && PRODUCTS[param.toLowerCase()]) {
-                currentProductKey = param.toLowerCase();
-            }
-        } catch (e) {
-            // fallback blijft 'kiosk'
-        }
-
+        // --- Select product ---
+        let currentProductKey = getQueryParam('product')?.toLowerCase() || 'kiosk';
+        if (!PRODUCTS[currentProductKey]) currentProductKey = 'kiosk';
         let currentProduct = PRODUCTS[currentProductKey];
 
+        // --- State ---
         let state = {
             support: 'basic',
             screens: 2,
@@ -605,7 +593,7 @@
             startTime: ''
         };
 
-        // --- FUNCTIONS ---
+        // --- Functions ---
         function init() {
             productImg.src = currentProduct.img;
             productName.textContent = currentProduct.title;
@@ -622,29 +610,26 @@
                 state.screens = 2;
             }
 
-            asideSupport.textContent = '€30 / mnd';
+            recalcPrices();
 
-            // support pills
             supportPills.forEach(p => {
                 p.addEventListener('click', () => {
                     supportPills.forEach(x => x.classList.remove('active'));
                     p.classList.add('active');
-                    state.support = p.getAttribute('data-value');
+                    state.support = p.dataset.value;
                     recalcPrices();
                 });
             });
 
-            // date pills
             datePills.forEach(p => {
                 p.addEventListener('click', () => {
                     datePills.forEach(x => x.classList.remove('active'));
                     p.classList.add('active');
-                    state.dateMode = p.getAttribute('data-value');
+                    state.dateMode = p.dataset.value;
                     updateDateBlocks();
                 });
             });
 
-            // screens input
             screensInput.addEventListener('input', () => {
                 let v = parseInt(screensInput.value) || 2;
                 if (v < 2) v = 2;
@@ -653,14 +638,10 @@
                 recalcPrices();
             });
 
-            // step navigation
             toStep2Btn.addEventListener('click', () => goToStep(2));
             backTo1Btn.addEventListener('click', () => goToStep(1));
             toStep3Btn.addEventListener('click', () => {
-                if (currentProduct.hardwareTwoPrice && state.screens < 2) {
-                    alert('Aantal schermen moet minimaal 2 zijn.');
-                    return;
-                }
+                if (currentProduct.hardwareTwoPrice && state.screens < 2) { alert('Aantal schermen moet minimaal 2 zijn.'); return; }
                 goToStep(3);
                 populateFinalSummary();
             });
@@ -694,103 +675,105 @@
                     prices: computePrices()
                 };
 
-                orderResult.innerHTML = `<div class="success">Bedankt — je bestelling is verzonden!<div class="muted small" style="margin-top:8px;">We nemen binnen 1-2 werkdagen contact met je op om alles te bevestigen en in te plannen.</div></div>`;
+                orderResult.innerHTML = `<div class="success">Bedankt — je bestelling is verzonden!<div class="muted small" style="margin-top:8px;">We nemen contact op om alles te bevestigen.</div></div>`;
 
                 const details = document.createElement('div');
                 details.className = 'summary-box';
                 details.style.marginTop = '12px';
                 details.innerHTML = `
-          <strong>Samenvatting:</strong>
-          <div style="margin-top:6px;">Product: ${payload.productName}</div>
-          <div>Aantal schermen: ${payload.screens || '—'}</div>
-          <div>Support: ${payload.support}</div>
-          <div>Wensdatum: ${payload.wensDate || '—'}</div>
-          <div>Ingangsdatum/tijd: ${payload.startDate || '—'} ${payload.startTime || ''}</div>
-          <div style="margin-top:8px;">Totaal eenmalig: ${€(payload.prices.totalOneTime)
+                <div><strong>Product:</strong> ${payload.productName}</div>
+                <div><strong>Aantal schermen:</strong> ${payload.screens || '—'}</div>
+                <div><strong>Support:</strong> ${payload.support}</div>
+                <div><strong>Wensdatum:</strong> ${payload.wensDate || '—'}</div>
+                <div><strong>Ingangsdatum/tijd:</strong> ${payload.startDate || '—'} ${payload.startTime || ''}</div>
+                <div style="margin-top:8px;"><strong>Totaal eenmalig:</strong> ${€(payload.prices.totalOneTime)
             }</div >
-            <div>Totaal maandelijks: ${€(payload.prices.totalMonthly)}</div>
-        `;
-        orderResult.appendChild(details);
-        document.getElementById('placeOrderBtn').disabled=true;
-        document.getElementById('placeOrderBtn').textContent='Verzonden';
-      });
+            <div><strong>Totaal maandelijks:</strong> ${€(payload.prices.totalMonthly)}</div>
+            `;
+            orderResult.appendChild(details);
+            document.getElementById('placeOrderBtn').disabled = true;
+            document.getElementById('placeOrderBtn').textContent = 'Verzonden';
+        });
 
-      goToStep(1);
-      recalcPrices();
+        goToStep(1);
+        updateDateBlocks();
 }
 
-function goToStep(n){
-      stepPanes.forEach(p=>p.style.display=(p.getAttribute('data-step')==n?'':'none'));
-      stepIndicator.textContent=`${ n } / 3`;
-      document.getElementById('stepContainer').scrollIntoView({behavior:'smooth'});
+function goToStep(n) {
+        stepPanes.forEach(p => p.style.display = (p.dataset.step == n ? '' : 'none'));
+        stepIndicator.textContent = `${ n } / 3`;
+        document.getElementById('stepContainer').scrollIntoView({ behavior: 'smooth' });
 }
 
-function computePrices(){
-      let hardwareOneTime=0;
-      let otherOneTime=currentProduct.otherOneTime||0;
-      let supportMonthly=state.support==='basic'?30:45;
+function computePrices() {
+        let hardwareOneTime = 0;
+        let otherOneTime = currentProduct.otherOneTime || 0;
+        let supportMonthly = state.support === 'basic' ? 30 : 45;
 
-      if(currentProduct.supportBase && currentProduct.supportBase>0){
-        if(state.support==='basic' && currentProduct.supportBase>supportMonthly) supportMonthly=currentProduct.supportBase;
-      }
+        if (currentProduct.supportBase && currentProduct.supportBase > supportMonthly) supportMonthly = currentProduct.supportBase;
 
-      if(currentProduct.hardwareTwoPrice){
-        const pricePerScreen=Number(currentProduct.hardwareTwoPrice)/2.0;
-        const screens=Math.max(2,Number(state.screens)||2);
-        hardwareOneTime=pricePerScreen*screens;
-      }
+        if (currentProduct.hardwareTwoPrice) {
+            const pricePerScreen = Number(currentProduct.hardwareTwoPrice) / 2.0;
+            const screens = Math.max(2, Number(state.screens) || 2);
+            hardwareOneTime = pricePerScreen * screens;
+        }
 
-      const totalOneTime=hardwareOneTime+otherOneTime;
-      const totalMonthly=supportMonthly;
-
-      return { hardwareOneTime, otherOneTime, supportMonthly, totalOneTime, totalMonthly };
+        return {
+            hardwareOneTime,
+            otherOneTime,
+            supportMonthly,
+            totalOneTime: hardwareOneTime + otherOneTime,
+            totalMonthly: supportMonthly
+        };
 }
 
-function recalcPrices(){
-      const p=computePrices();
-      hardwarePriceEl.textContent=p.hardwareOneTime?€(p.hardwareOneTime):'—';
-      supportPriceEl.textContent=p.supportMonthly?€(p.supportMonthly)+' / maand':'—';
-      otherPriceEl.textContent=p.otherOneTime?€(p.otherOneTime):'—';
-      totalOnetimeEl.textContent=€(p.totalOneTime);
-      totalMonthlyEl.textContent=p.totalMonthly?€(p.totalMonthly)+' / maand':'—';
-      asideOneTime.textContent=€(p.totalOneTime);
-      asideMonthly.textContent=p.totalMonthly?€(p.totalMonthly)+' / maand':'—';
-      asideSupport.textContent=p.supportMonthly?€(p.supportMonthly)+' / mnd':'—';
+function recalcPrices() {
+        const p = computePrices();
+        hardwarePriceEl.textContent = p.hardwareOneTime ? €(p.hardwareOneTime) : '—';
+        supportPriceEl.textContent = p.supportMonthly ? €(p.supportMonthly) + ' / maand' : '—';
+        otherPriceEl.textContent = p.otherOneTime ? €(p.otherOneTime) : '—';
+        totalOnetimeEl.textContent = €(p.totalOneTime);
+        totalMonthlyEl.textContent = p.totalMonthly ? €(p.totalMonthly) + ' / maand' : '—';
+        asideOneTime.textContent = €(p.totalOneTime);
+        asideMonthly.textContent = p.totalMonthly ? €(p.totalMonthly) + ' / maand' : '—';
+        asideSupport.textContent = p.supportMonthly ? €(p.supportMonthly) + ' / mnd' : '—';
 }
 
-function updateDateBlocks(){
-      if(state.dateMode==='wens'){
-        wensBlock.style.display='';
-        startBlock.style.display='none';
-      } else {
-        wensBlock.style.display='none';
-        startBlock.style.display='';
-      }
+function updateDateBlocks() {
+        if (state.dateMode === 'wens') {
+            wensBlock.style.display = '';
+            startBlock.style.display = 'none';
+        } else {
+            wensBlock.style.display = 'none';
+            startBlock.style.display = '';
+        }
 }
 
-function populateFinalSummary(){
-      const prices=computePrices();
-      let dateText='';
-      if(state.dateMode==='wens'){
-        dateText=state.wensDate?`Wensdatum: ${ state.wensDate }`:'Wensdatum: —';
-      } else {
-        dateText=(state.startDate||state.startTime)?`Ingang: ${ state.startDate || '—' } ${ state.startTime || '' }`:'Ingang: —';
-      }
-      const html=`
+function populateFinalSummary() {
+        const prices = computePrices();
+        let dateText = '';
+        if (state.dateMode === 'wens') {
+            dateText = state.wensDate ? `Wensdatum: ${ state.wensDate }` : 'Wensdatum: —';
+        } else {
+            dateText = (state.startDate || state.startTime) ? `Ingang: ${ state.startDate || '—' } ${ state.startTime || '' }` : 'Ingang: —';
+        }
+
+        const html = `
             < div > <strong>Product:</strong> ${ currentProduct.title }</div >
-        <div><strong>Support:</strong> ${state.support==='basic'?'Basis (€30/mnd)':'Pro (€45/mnd)'}</div>
-        <div><strong>Aantal schermen:</strong> ${currentProduct.hardwareTwoPrice?(state.screens):'—'}</div>
-        <div style="margin-top:8px;">${dateText}</div>
-        <hr class="sep" />
-        <div class="price-row"><div>Eenmalig (hardware + installatie)</div><div>${€(prices.totalOneTime)}</div></div>
-        <div class="price-row"><div>Maandelijks (support)</div><div>${prices.totalMonthly?€(prices.totalMonthly)+' / mnd':'—'}</div></div>
-        <div class="hint" style="margin-top:8px;">Na bevestiging nemen we contact met je op om details en planning door te spreken.</div>
-      `;
-      finalSummary.innerHTML=html;
+            <div><strong>Support:</strong> ${state.support === 'basic' ? 'Basis (€30/mnd)' : 'Pro (€45/mnd)'}</div>
+            <div><strong>Aantal schermen:</strong> ${currentProduct.hardwareTwoPrice ? state.screens : '—'}</div>
+            <div style="margin-top:8px;">${dateText}</div>
+            <hr class="sep" />
+            <div class="price-row"><div>Eenmalig (hardware + installatie)</div><div>${€(prices.totalOneTime)}</div></div>
+            <div class="price-row"><div>Maandelijks (support)</div><div>${prices.totalMonthly ? €(prices.totalMonthly) + ' / mnd' : '—'}</div></div>
+            <div class="hint" style="margin-top:8px;">Na bevestiging nemen we contact met je op om details en planning door te spreken.</div>
+        `;
+        finalSummary.innerHTML = html;
 }
 
 // --- INIT ---
 init();
     </script>
+
 </body>
 </html>
