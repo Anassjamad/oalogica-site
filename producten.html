@@ -108,8 +108,8 @@
 
             .btn:hover,
             button.btn:hover {
-                opacity: 0.9;
-                transform: translateY(-2px);
+                opacity: 0.95;
+                transform: translateY(-3px);
             }
 
         .muted {
@@ -139,12 +139,13 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            transition: 0.3s;
+            transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
         }
 
             .product-card:hover {
-                transform: translateY(-4px);
+                transform: translateY(-8px) scale(1.01);
                 background: rgba(255,255,255,0.08);
+                box-shadow: 0 14px 40px rgba(2,6,23,0.6);
             }
 
             .product-card.qr {
@@ -177,136 +178,32 @@
             margin-bottom: 12px;
             object-fit: cover;
             height: 180px;
+            transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
         }
 
-        /* Overlay full page product detail */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--bg);
-            overflow-y: auto;
-            padding: 32px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-            z-index: 1000;
+        .product-card:hover img.product-img {
+            transform: scale(1.03) rotate(-0.3deg);
         }
 
-            .overlay.active {
-                opacity: 1;
-                pointer-events: auto;
-                animation: slideFadeIn 0.4s ease forwards;
-            }
-
-        .overlay-content {
-            max-width: 700px;
+        .cta-row {
+            margin-top: auto;
             width: 100%;
-            background: var(--card);
-            border-radius: 16px;
-            padding: 24px 32px 32px 32px;
-            box-shadow: 0 6px 18px rgba(2,6,23,0.8);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUpFadeIn 0.4s ease forwards 0.1s;
-            position: relative;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price-tag {
+            font-weight: 800;
             color: #e6eef8;
         }
 
-        /* Animaties */
-        @keyframes slideFadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUpFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Overlay close button */
-        .close-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: var(--accent);
-            border: none;
-            border-radius: 6px;
-            padding: 8px 12px;
-            color: white;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-            .close-btn:hover {
-                background: #1a4edb;
-            }
-
-        /* Form styles */
-        form label {
-            display: block;
-            margin-top: 16px;
-            font-weight: 600;
-            font-size: 15px;
-            color: #cbd5e1;
-        }
-
-        form input,
-        form textarea {
-            width: 100%;
-            margin-top: 6px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: none;
-            background: #1e293b;
-            color: white;
-            font-size: 15px;
-            resize: vertical;
-        }
-
-        form textarea {
-            min-height: 80px;
-        }
-
-        form button[type="submit"] {
-            margin-top: 22px;
-            background: var(--basic);
-            border: none;
-            padding: 14px 24px;
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-            form button[type="submit"]:hover {
-                background: #18ad3d;
-            }
-
-        /* Responsive tweaks */
-        @media (max-width: 600px) {
-            .overlay-content {
-                padding: 24px 16px 24px 16px;
+        @media (max-width:600px) {
+            .cta-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
             }
         }
     </style>
@@ -347,7 +244,12 @@
                                 <li>✔ Zelf beheren via adminpaneel</li>
                                 <li>✔ Slechts €36,50 per maand</li>
                             </ul>
-                            <button class="btn btn-bekijk">Bekijk</button>
+
+                            <div class="cta-row">
+                                <div class="muted small">Vanaf €36,50 / mnd</div>
+                                <!-- Link naar bestellen pagina met query -->
+                                <a class="btn" href="bestellen.html?product=qr">Bekijk & bestel</a>
+                            </div>
                         </div>
 
                         <!-- Kiosk -->
@@ -357,11 +259,15 @@
                             <p class="muted">De Sunmi K2 kiosken maken het mogelijk om zonder personeel te bestellen en af te rekenen.</p>
                             <ul class="features">
                                 <li>✔ Inclusief hardware + software</li>
-                                <li>✔ Eenmalig €1754,50 + €45 p/m</li>
+                                <li>✔ Eenmalig €1754,50 voor 2 schermen</li>
+                                <li>✔ Elk extra scherm +€877,25</li>
                                 <li>✔ Gratis installatie op locatie</li>
-                                <li>✔ 24/7 directe support</li>
                             </ul>
-                            <button class="btn btn-bekijk">Bekijk</button>
+
+                            <div class="cta-row">
+                                <div class="price-tag">€1754,50 eenmalig (2 schermen)</div>
+                                <a class="btn" href="bestellen.html?product=kiosk">Bekijk & bestel</a>
+                            </div>
                         </div>
 
                         <!-- Maatwerk Software -->
@@ -375,7 +281,11 @@
                                 <li>✔ Persoonlijke aanpak</li>
                                 <li>✔ Intakegesprek altijd gratis</li>
                             </ul>
-                            <button class="btn btn-bekijk">Bekijk</button>
+
+                            <div class="cta-row">
+                                <div class="muted small">Prijs op aanvraag</div>
+                                <a class="btn" href="bestellen.html?product=maatwerk">Bekijk & vraag aan</a>
+                            </div>
                         </div>
 
                     </div>
@@ -387,138 +297,7 @@
             <div class="muted">© oa Logica — Ontwikkelend &amp; automatiserend</div>
         </footer>
     </div>
-
-    <!-- Overlay voor product details + bestel formulier -->
-    <div class="overlay" role="dialog" aria-modal="true" aria-hidden="true" id="productOverlay" tabindex="-1">
-        <div class="overlay-content" role="document">
-            <button class="close-btn" aria-label="Sluit product details">Terug</button>
-            <div id="overlayInnerContent">
-                <!-- Wordt dynamisch gevuld -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const products = {
-            qr: {
-                title: "QR Bestelsoftware",
-                img: "https://www.appstudio.ca/blog/wp-content/uploads/2020/09/Modern-Software-Development.jpg",
-                description: `Laat klanten via hun telefoon direct bestellen, zonder wachttijd. Onze software biedt een digitale menukaart gekoppeld aan je keuken.`,
-                features: [
-                    "Digitale menukaart via QR",
-                    "Real-time keukenkoppeling",
-                    "Zelf beheren via adminpaneel",
-                    "Slechts €36,50 per maand"
-                ],
-                formSubject: "QR Bestelsoftware aanvraag"
-            },
-            kiosk: {
-                title: "Self-Order Kiosk",
-                img: "https://d2ms8rpfqc4h24.cloudfront.net/5_Things_to_Consider_while_Building_Software_027d294615.jpg",
-                description: `Met de Sunmi K2 kiosken kunnen klanten zelf bestellen en betalen zonder personeel. Inclusief hardware en software, met support.`,
-                features: [
-                    "Inclusief hardware + software",
-                    "Eenmalig €1754,50 + €45 p/m",
-                    "Gratis installatie op locatie",
-                    "24/7 directe support"
-                ],
-                formSubject: "Self-Order Kiosk aanvraag"
-            },
-            maatwerk: {
-                title: "Software op Maat",
-                img: "https://www.flexsin.com/blog/wp-content/uploads/2019/12/Custom-Software-Development.jpg",
-                description: `Heb je een uniek idee? Wij bouwen maatwerk software die perfect aansluit op jouw bedrijfsprocessen en wensen.`,
-                features: [
-                    "Jij bedenkt het, wij bouwen het",
-                    "Webapps, dashboards of automatiseringen",
-                    "Persoonlijke aanpak",
-                    "Intakegesprek altijd gratis"
-                ],
-                formSubject: "Maatwerk software aanvraag"
-            }
-        };
-
-        const overlay = document.getElementById('productOverlay');
-        const overlayContent = document.getElementById('overlayInnerContent');
-        const closeBtn = overlay.querySelector('.close-btn');
-
-        function openOverlay(productKey) {
-            const product = products[productKey];
-            if (!product) return;
-
-            // Vul inhoud dynamisch
-            overlayContent.innerHTML = `
-                    <h2>${product.title}</h2>
-                    <img src="${product.img}" alt="${product.title}" style="width:100%; border-radius:12px; margin:16px 0; object-fit:cover; max-height:300px;" />
-                    <p style="font-size:16px; line-height:1.5; margin-bottom:16px;">${product.description}</p>
-                    <ul style="list-style:none; padding-left:0; color: var(--muted); margin-bottom: 24px;">
-                        ${product.features.map(f => `<li>✔ ${f}</li>`).join('')}
-                    </ul>
-
-                    <form id="orderForm">
-                        <input type="hidden" name="subject" value="${product.formSubject}" />
-                        <label for="name">Naam</label>
-                        <input type="text" id="name" name="name" required placeholder="Jouw naam" />
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="Jouw email" />
-                        <label for="phone">Telefoonnummer</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Optioneel" />
-                        <label for="message">Opmerking / Vraag</label>
-                        <textarea id="message" name="message" placeholder="Vul hier je vraag of opmerking in"></textarea>
-                        <button type="submit" class="btn">Bestel</button>
-                    </form>
-
-                    <div id="formMessage" style="margin-top:16px; color: var(--basic); font-weight: 600;"></div>
-                `;
-
-            overlay.classList.add('active');
-            overlay.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-            overlay.focus();
-
-            // Form event listener
-            const orderForm = document.getElementById('orderForm');
-            const formMessage = document.getElementById('formMessage');
-
-            orderForm.addEventListener('submit', e => {
-                e.preventDefault();
-
-                // Voor demo: gewoon bevestiging tonen (normaal hier backend-aanroep)
-                formMessage.textContent = "Bedankt voor je bestelling! We nemen snel contact op.";
-                orderForm.reset();
-            }, { once: true });
-        }
-
-        function closeOverlay() {
-            overlay.classList.remove('active');
-            overlay.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-
-            // Na animatie inhoud leegmaken zodat geen oude data blijft
-            setTimeout(() => {
-                overlayContent.innerHTML = '';
-            }, 400);
-        }
-
-        // Knoppen "Bekijk" koppelen
-        document.querySelectorAll('.btn-bekijk').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const productCard = btn.closest('.product-card');
-                const productKey = productCard.getAttribute('data-product');
-                openOverlay(productKey);
-            });
-        });
-
-        // Close knop
-        closeBtn.addEventListener('click', closeOverlay);
-
-        // Ook sluiten bij ESC toets
-        document.addEventListener('keydown', e => {
-            if (e.key === "Escape" && overlay.classList.contains('active')) {
-                closeOverlay();
-            }
-        });
-    </script>
 </body>
 </html>
+
 

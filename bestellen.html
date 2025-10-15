@@ -1,0 +1,844 @@
+﻿<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bestellen — oa Logica</title>
+    <link rel="icon" href="data:," />
+    <style>
+        :root {
+            --accent: #2563eb;
+            --bg: #0f172a;
+            --card: #0b1220;
+            --muted: #94a3b8;
+            --pro: #7c3aed;
+            --basic: #22c55e;
+            --kiosk: #f59e0b;
+            --glass: rgba(255,255,255,0.03);
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+            color: #e6eef8;
+            background: linear-gradient(180deg,#071022 0%,#071632 60%);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 28px auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            background: linear-gradient(135deg,var(--accent),#7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 22px;
+            user-select: none;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+            margin-bottom: 18px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 20px;
+        }
+
+        @media (max-width:980px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-summary {
+            background: linear-gradient(180deg,#07162a, #071022);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .product-hero {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+            .product-hero img {
+                width: 96px;
+                height: 66px;
+                object-fit: cover;
+                border-radius: 8px;
+                border: 1px solid rgba(255,255,255,0.04);
+            }
+
+        .stepper {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .step {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.04);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+            .step.active {
+                background: linear-gradient(90deg,var(--accent),#7c3aed);
+            }
+
+        .form-card {
+            background: rgba(255,255,255,0.02);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .field {
+            margin-top: 12px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        input[type="number"], input[type="text"], input[type="email"], input[type="date"], input[type="time"], select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: none;
+            background: #0f172a;
+            color: #e6eef8;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+            user-select: none;
+        }
+
+            .btn.ghost {
+                background: transparent;
+                border: 1px solid rgba(255,255,255,0.06);
+                color: var(--muted);
+            }
+
+            .btn.primary {
+                background: var(--basic);
+                color: white;
+            }
+
+            .btn:active {
+                transform: translateY(1px);
+            }
+
+        .summary-box {
+            background: rgba(255,255,255,0.02);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.03);
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .total {
+            font-weight: 800;
+            color: #e6eef8;
+            font-size: 18px;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .success {
+            padding: 18px;
+            border-radius: 12px;
+            background: linear-gradient(180deg,#0f2a1a,#072014);
+            border: 1px solid rgba(0,0,0,0.2);
+            color: var(--basic);
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        .small {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .toggle {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .radio-pill {
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.03);
+            user-select: none;
+            transition: transform .14s ease, background .18s ease, color .18s ease;
+        }
+
+            .radio-pill:hover {
+                transform: translateY(-3px);
+            }
+
+            .radio-pill.active {
+                background: linear-gradient(90deg,var(--accent),#7c3aed);
+                color: white;
+            }
+
+        .note {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        hr.sep {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            margin: 14px 0;
+            border-radius: 2px;
+        }
+
+        .footer-note {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* animations */
+        .fade-in {
+            animation: fadeIn 0.28s ease both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-elev {
+            transition: box-shadow .28s ease;
+        }
+
+            .card-elev:hover {
+                box-shadow: 0 18px 50px rgba(2,6,23,0.6);
+                transform: translateY(-6px);
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="logo">LG</div>
+                <div>
+                    <h1>oa Logica</h1>
+                    <div class="muted">Ontwikkelend & automatiserend — innovatieve horecaoplossingen</div>
+                </div>
+            </div>
+            <nav>
+                <a class="muted" href="producten.html" style="text-decoration:none;margin-right:12px;">← Terug naar producten</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+                    <div>
+                        <h2 id="pageTitle">Bestellen</h2>
+                        <div class="muted" id="pageSubtitle">Vul je bestelling in — we helpen je stap voor stap.</div>
+                    </div>
+                    <div class="small">Stappen: <span id="stepIndicator">1 / 3</span></div>
+                </div>
+
+                <div class="grid" style="margin-top:18px;">
+                    <!-- Left: form steps -->
+                    <div>
+                        <div class="form-card fade-in card-elev" id="stepContainer">
+
+                            <!-- Product summary at top -->
+                            <div class="field">
+                                <label>Gekozen product</label>
+                                <div class="product-summary" id="productBoxTop">
+                                    <div class="product-hero">
+                                        <img id="productImg" src="" alt="Product afbeelding">
+                                        <div>
+                                            <div id="productName" style="font-weight:800;font-size:16px;">Product naam</div>
+                                            <div class="muted" id="productDesc">Korte product omschrijving</div>
+                                            <div class="hint" id="productHint"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- STEP 1 -->
+                            <div class="step-pane" data-step="1">
+                                <div class="stepper" style="margin-top:14px;">
+                                    <div class="step active">1</div>
+                                    <div class="small">Pakket & Aantal schermen</div>
+                                </div>
+
+                                <div class="field">
+                                    <label>Support pakket</label>
+                                    <div class="toggle" id="supportToggle" role="tablist" aria-label="Support keuze">
+                                        <div class="radio-pill active" data-value="basic">Basis Support — €30 / maand</div>
+                                        <div class="radio-pill" data-value="pro">Pro Support — €45 / maand</div>
+                                    </div>
+                                    <div class="note">Supportkosten zijn maandelijks. Kies het pakket dat bij je past.</div>
+                                </div>
+
+                                <div class="field" id="screensField">
+                                    <label>Aantal schermen</label>
+                                    <input type="number" id="screensInput" min="2" value="2" step="1" />
+                                    <div class="hint">Minimaal 2 schermen. Prijs is inclusief hardware éénmalig.</div>
+                                </div>
+
+                                <div class="field">
+                                    <label>Prijs overzicht</label>
+                                    <div class="summary-box" id="priceSummary">
+                                        <div class="price-row"><div>Hardware (eenmalig)</div><div id="hardwarePrice">€0,00</div></div>
+                                        <div class="price-row"><div>Support (maandelijks)</div><div id="supportPrice">€0,00</div></div>
+                                        <div class="price-row"><div>Installatie & overige</div><div id="otherPrice">€0,00</div></div>
+                                        <hr class="sep" />
+                                        <div class="price-row total"><div>Totaal eenmalig</div><div id="totalOnetime">€0,00</div></div>
+                                        <div class="price-row total"><div>Totaal maandelijks</div><div id="totalMonthly">€0,00</div></div>
+                                    </div>
+                                </div>
+
+                                <div class="controls" style="margin-top:18px;">
+                                    <button class="btn ghost" id="toStep2">Volgende</button>
+                                    <div class="muted small">Je kunt later altijd terug</div>
+                                </div>
+                            </div>
+
+                            <!-- STEP 2 -->
+                            <div class="step-pane" data-step="2" style="display:none;">
+                                <div class="stepper">
+                                    <div class="step">1</div>
+                                    <div class="step active">2</div>
+                                    <div class="small">Datum & Tijd</div>
+                                </div>
+
+                                <div class="field">
+                                    <label>Keuze</label>
+                                    <div class="toggle" id="dateChoice">
+                                        <div class="radio-pill active" data-value="wens">Wensdatum</div>
+                                        <div class="radio-pill" data-value="start">Ingangsdatum + Tijd</div>
+                                    </div>
+                                    <div class="note">Kies of je een wensdatum opgeeft of een concrete ingangsdatum en tijd.</div>
+                                </div>
+
+                                <div id="wensBlock" class="field">
+                                    <label>Wensdatum</label>
+                                    <input type="date" id="wensDate" />
+                                    <div class="hint">Bijv. "Voor 15 december 2025".</div>
+                                </div>
+
+                                <div id="startBlock" class="field" style="display:none;">
+                                    <label>Ingangsdatum</label>
+                                    <input type="date" id="startDate" />
+                                    <label style="margin-top:10px;">Tijd</label>
+                                    <input type="time" id="startTime" />
+                                    <div class="hint">Specificeer wanneer de installatie/ingang ongeveer moet plaatsvinden.</div>
+                                </div>
+
+                                <div class="controls">
+                                    <button class="btn ghost" id="backTo1">Terug</button>
+                                    <button class="btn" id="toStep3">Volgende</button>
+                                </div>
+                            </div>
+
+                            <!-- STEP 3 -->
+                            <div class="step-pane" data-step="3" style="display:none;">
+                                <div class="stepper">
+                                    <div class="step">1</div>
+                                    <div class="step">2</div>
+                                    <div class="step active">3</div>
+                                    <div class="small">Gegevens & Bevestiging</div>
+                                </div>
+
+                                <form id="checkoutForm">
+                                    <div class="field">
+                                        <label>Contactnaam</label>
+                                        <input type="text" id="custName" required placeholder="Jouw naam" />
+                                    </div>
+                                    <div class="field">
+                                        <label>Email</label>
+                                        <input type="email" id="custEmail" required placeholder="naam@voorbeeld.nl" />
+                                    </div>
+                                    <div class="field">
+                                        <label>Telefoonnummer</label>
+                                        <input type="text" id="custPhone" placeholder="Optioneel" />
+                                    </div>
+                                    <div class="field">
+                                        <label>Opmerking / Extra wensen</label>
+                                        <textarea id="custNotes" placeholder="Bijv. gewenste locatie, netwerkdetails, etc."></textarea>
+                                    </div>
+
+                                    <div class="field">
+                                        <label>Besteloverzicht</label>
+                                        <div class="summary-box" id="finalSummary">
+                                            <!-- Dynamische inhoud -->
+                                        </div>
+                                    </div>
+
+                                    <div class="controls">
+                                        <button type="button" class="btn ghost" id="backTo2">Terug</button>
+                                        <button type="submit" class="btn primary" id="placeOrderBtn">Plaats bestelling</button>
+                                    </div>
+                                </form>
+
+                                <div id="orderResult"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Right: product & help -->
+                    <aside>
+                        <div class="card product-summary fade-in">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div>
+                                    <div class="small">Je bestelt</div>
+                                    <div id="asideProductName" style="font-weight:800;font-size:18px;margin-top:6px;">Self-Order Kiosk</div>
+                                    <div class="muted" id="asideProductTag" style="margin-top:6px;">Hardware + software</div>
+                                </div>
+                                <div style="text-align:right;">
+                                    <div class="muted small">Support</div>
+                                    <div id="asideSupport" style="font-weight:800;margin-top:6px;">€30 / mnd</div>
+                                </div>
+                            </div>
+
+                            <div class="summary-box" style="margin-top:14px;">
+                                <div class="small">Snel overzicht</div>
+                                <div class="price-row"><div>Eenmalig</div><div id="asideOneTime">€0,00</div></div>
+                                <div class="price-row"><div>Maandelijks</div><div id="asideMonthly">€0,00</div></div>
+                                <div class="muted small footer-note">Na versturen nemen we contact op om alles te bevestigen en in te plannen.</div>
+                            </div>
+
+                            <div style="margin-top:12px;">
+                                <button class="btn" id="quickBack">Terug naar producten</button>
+                            </div>
+                        </div>
+
+                        <div class="card" style="margin-top:14px;">
+                            <div style="font-weight:700;margin-bottom:8px;">Hulp nodig?</div>
+                            <div class="muted small">Bel ons: <strong style="color:var(--basic)">+31 6 12 34 56 78</strong></div>
+                            <div class="muted small" style="margin-top:8px;">Of stuur een e-mail naar <strong>info@oalogica.nl</strong></div>
+                        </div>
+                    </aside>
+                </div>
+
+                <div class="footer-note muted small">Let op: dit is een demoflow — de bestelling wordt lokaal verwerkt. Voor productie moet het formulier naar je backend of e-mail service gestuurd worden.</div>
+
+            </section>
+        </main>
+    </div>
+
+    <script>
+        /*
+          Bestellen (verbeterd)
+          - Lees ?product=... uit URL
+          - Prijsregels:
+              * kiosk: 2 schermen = €1754.50 (eenmalig). Per extra scherm = €877.25
+              * qr: geen hardware kost, abonnement €36.50 (wordt minimaal getoond)
+              * maatwerk: prijs op aanvraag
+          - Support: Basis €30 / Pro €45
+        */
+
+        const PRODUCTS = {
+            kiosk: {
+                key: 'kiosk',
+                title: 'Self-Order Kiosk',
+                short: 'De Sunmi K2 kiosken: hardware + software voor zelfbestelling.',
+                img: 'https://file.cdn.sunmi.com/newebsite/products/k2/md/3-2.jpg',
+                hardwareTwoPrice: 1754.50, // prijs voor 2 schermen (eenmalig)
+                otherOneTime: 0.00,
+                supportBase: 45.00,
+                tags: 'Inclusief hardware + software'
+            },
+            qr: {
+                key: 'qr',
+                title: 'QR Bestelsoftware',
+                short: 'Klanten bestellen via hun telefoon — digitale menukaart en keuken koppeling.',
+                img: 'https://www.flexsin.com/blog/wp-content/uploads/2019/12/Custom-Software-Development.jpg',
+                hardwareTwoPrice: null,
+                otherOneTime: 0.00,
+                supportBase: 36.50,
+                tags: 'Maandabonnement software'
+            },
+            maatwerk: {
+                key: 'maatwerk',
+                title: 'Software op Maat',
+                short: 'Uniek project — prijs op aanvraag. Intakegesprek verplicht.',
+                img: 'https://d2ms8rpfqc4h24.cloudfront.net/5_Things_to_Consider_while_Building_Software_027d294615.jpg',
+                hardwareTwoPrice: null,
+                otherOneTime: 0.00,
+                supportBase: 0.00,
+                tags: 'Prijs op aanvraag'
+            }
+        };
+
+        const € = v => {
+            const n = Number(v) || 0;
+            return '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        };
+
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        const productImg = document.getElementById('productImg');
+        const productName = document.getElementById('productName');
+        const productDesc = document.getElementById('productDesc');
+        const productHint = document.getElementById('productHint');
+        const asideProductName = document.getElementById('asideProductName');
+        const asideProductTag = document.getElementById('asideProductTag');
+
+        const supportToggle = document.getElementById('supportToggle');
+        const supportPills = supportToggle.querySelectorAll('.radio-pill');
+        const screensField = document.getElementById('screensField');
+        const screensInput = document.getElementById('screensInput');
+
+        const hardwarePriceEl = document.getElementById('hardwarePrice');
+        const supportPriceEl = document.getElementById('supportPrice');
+        const otherPriceEl = document.getElementById('otherPrice');
+        const totalOnetimeEl = document.getElementById('totalOnetime');
+        const totalMonthlyEl = document.getElementById('totalMonthly');
+
+        const asideOneTime = document.getElementById('asideOneTime');
+        const asideMonthly = document.getElementById('asideMonthly');
+        const asideSupport = document.getElementById('asideSupport');
+
+        const toStep2Btn = document.getElementById('toStep2');
+        const backTo1Btn = document.getElementById('backTo1');
+        const toStep3Btn = document.getElementById('toStep3');
+        const backTo2Btn = document.getElementById('backTo2');
+
+        const stepPanes = document.querySelectorAll('.step-pane');
+        const stepIndicator = document.getElementById('stepIndicator');
+
+        const dateChoice = document.getElementById('dateChoice');
+        const datePills = dateChoice.querySelectorAll('.radio-pill');
+        const wensBlock = document.getElementById('wensBlock');
+        const startBlock = document.getElementById('startBlock');
+
+        const wensDate = document.getElementById('wensDate');
+        const startDate = document.getElementById('startDate');
+        const startTime = document.getElementById('startTime');
+
+        const checkoutForm = document.getElementById('checkoutForm');
+        const finalSummary = document.getElementById('finalSummary');
+        const orderResult = document.getElementById('orderResult');
+
+        const quickBack = document.getElementById('quickBack');
+
+        let currentProductKey = getQueryParam('product') || 'kiosk';
+        if (!PRODUCTS[currentProductKey]) currentProductKey = 'kiosk';
+        let currentProduct = PRODUCTS[currentProductKey];
+
+        let state = {
+            support: 'basic',
+            screens: 2,
+            dateMode: 'wens',
+            wensDate: '',
+            startDate: '',
+            startTime: ''
+        };
+
+        // Initialization
+        function init() {
+            productImg.src = currentProduct.img;
+            productName.textContent = currentProduct.title;
+            productDesc.textContent = currentProduct.short;
+            productHint.textContent = currentProduct.tags;
+            asideProductName.textContent = currentProduct.title;
+            asideProductTag.textContent = currentProduct.tags;
+
+            if (!currentProduct.hardwareTwoPrice) {
+                screensField.style.display = 'none';
+            } else {
+                screensField.style.display = '';
+                screensInput.value = 2;
+                state.screens = 2;
+            }
+
+            asideSupport.textContent = '€30 / mnd';
+
+            // support pill clicks
+            supportPills.forEach(p => p.addEventListener('click', () => {
+                supportPills.forEach(x => x.classList.remove('active'));
+                p.classList.add('active');
+                state.support = p.getAttribute('data-value');
+                recalcPrices();
+            }));
+
+            // date pills
+            datePills.forEach(p => p.addEventListener('click', () => {
+                datePills.forEach(x => x.classList.remove('active'));
+                p.classList.add('active');
+                state.dateMode = p.getAttribute('data-value');
+                updateDateBlocks();
+            }));
+
+            screensInput.addEventListener('input', () => {
+                let v = parseInt(screensInput.value) || 2;
+                if (v < 2) v = 2;
+                screensInput.value = v;
+                state.screens = v;
+                recalcPrices();
+            });
+
+            toStep2Btn.addEventListener('click', () => goToStep(2));
+            backTo1Btn.addEventListener('click', () => goToStep(1));
+            toStep3Btn.addEventListener('click', () => {
+                if (currentProduct.hardwareTwoPrice && state.screens < 2) {
+                    alert('Aantal schermen moet minimaal 2 zijn.');
+                    return;
+                }
+                goToStep(3);
+                populateFinalSummary();
+            });
+            backTo2Btn.addEventListener('click', () => goToStep(2));
+
+            quickBack.addEventListener('click', () => {
+                window.location.href = 'producten.html';
+            });
+
+            wensDate.addEventListener('change', () => state.wensDate = wensDate.value);
+            startDate.addEventListener('change', () => state.startDate = startDate.value);
+            startTime.addEventListener('change', () => state.startTime = startTime.value);
+
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('custName').value.trim();
+                const email = document.getElementById('custEmail').value.trim();
+                if (!name || !email) {
+                    alert('Vul naam en email in.');
+                    return;
+                }
+
+                const payload = {
+                    product: currentProduct.key,
+                    productName: currentProduct.title,
+                    support: state.support,
+                    screens: state.screens,
+                    wensDate: state.wensDate,
+                    startDate: state.startDate,
+                    startTime: state.startTime,
+                    contact: {
+                        name,
+                        email,
+                        phone: document.getElementById('custPhone').value.trim(),
+                        notes: document.getElementById('custNotes').value.trim()
+                    },
+                    prices: computePrices()
+                };
+
+                orderResult.innerHTML = `<div class="success">Bedankt — je bestelling is verzonden!<div class="muted small" style="margin-top:8px;">We nemen binnen 1-2 werkdagen contact met je op om alles te bevestigen en in te plannen.</div></div>`;
+                const details = document.createElement('div');
+                details.className = 'summary-box';
+                details.style.marginTop = '12px';
+                details.innerHTML = `<strong>Samenvatting:</strong>
+          <div style="margin-top:6px;">Product: ${payload.productName}</div>
+          <div>Aantal schermen: ${payload.screens || '—'}</div>
+          <div>Support: ${payload.support}</div>
+          <div>Wensdatum: ${payload.wensDate || '—'}</div>
+          <div>Ingangsdatum/tijd: ${payload.startDate || '—'} ${payload.startTime || ''}</div>
+          <div style="margin-top:8px;">Totaal eenmalig: ${€(payload.prices.totalOneTime)
+            }</div >
+            <div>Totaal maandelijks: ${€(payload.prices.totalMonthly)}</div>`;
+        orderResult.appendChild(details);
+        document.getElementById('placeOrderBtn').disabled = true;
+        document.getElementById('placeOrderBtn').textContent = 'Verzonden';
+      });
+
+      goToStep(1);
+      recalcPrices();
+}
+
+function goToStep(n) {
+      stepPanes.forEach(p => p.style.display = (p.getAttribute('data-step') == n) ? '' : 'none');
+      stepIndicator.textContent = `${ n } / 3`;
+      document.getElementById('stepContainer').scrollIntoView({behavior:'smooth'});
+}
+
+function computePrices() {
+      let hardwareOneTime = 0;
+      let otherOneTime = currentProduct.otherOneTime || 0;
+      let supportMonthly = 0;
+
+      if (state.support === 'basic') supportMonthly = 30.00;
+      else if (state.support === 'pro') supportMonthly = 45.00;
+
+      // ensure product minimum monthly if applicable (e.g. qr)
+      if (currentProduct.supportBase && currentProduct.supportBase > 0) {
+        if (state.support === 'basic' && currentProduct.supportBase > supportMonthly) {
+          supportMonthly = currentProduct.supportBase;
+        }
+      }
+
+      if (currentProduct.hardwareTwoPrice) {
+        // per-screen price: price for 2 screens divided by 2
+        const pricePerScreen = Number(currentProduct.hardwareTwoPrice) / 2.0;
+        const screens = Math.max(2, Number(state.screens) || 2);
+        hardwareOneTime = pricePerScreen * screens;
+      } else {
+        hardwareOneTime = 0;
+      }
+
+      const totalOneTime = Number(hardwareOneTime) + Number(otherOneTime);
+      const totalMonthly = Number(supportMonthly);
+
+      return {
+        hardwareOneTime: Number(hardwareOneTime),
+        otherOneTime: Number(otherOneTime),
+        supportMonthly: Number(supportMonthly),
+        totalOneTime: Number(totalOneTime),
+        totalMonthly: Number(totalMonthly)
+      };
+}
+
+function recalcPrices() {
+      const p = computePrices();
+      hardwarePriceEl.textContent = p.hardwareOneTime ? €(p.hardwareOneTime) : '—';
+      supportPriceEl.textContent = p.supportMonthly ? €(p.supportMonthly) + ' / maand' : '—';
+      otherPriceEl.textContent = p.otherOneTime ? €(p.otherOneTime) : '—';
+      totalOnetimeEl.textContent = €(p.totalOneTime);
+      totalMonthlyEl.textContent = p.totalMonthly ? €(p.totalMonthly) + ' / maand' : '—';
+
+      asideOneTime.textContent = €(p.totalOneTime);
+      asideMonthly.textContent = p.totalMonthly ? €(p.totalMonthly) + ' / maand' : '—';
+      asideSupport.textContent = p.supportMonthly ? €(p.supportMonthly) + ' / mnd' : '—';
+}
+
+function updateDateBlocks() {
+      if (state.dateMode === 'wens') {
+        wensBlock.style.display = '';
+        startBlock.style.display = 'none';
+      } else {
+        wensBlock.style.display = 'none';
+        startBlock.style.display = '';
+      }
+}
+
+function populateFinalSummary() {
+      const prices = computePrices();
+      let dateText = '';
+      if (state.dateMode === 'wens') {
+        dateText = state.wensDate ? `Wensdatum: ${ state.wensDate }` : 'Wensdatum: —';
+      } else {
+        dateText = (state.startDate || state.startTime) ? `Ingang: ${ state.startDate || '—' } ${ state.startTime || '' }` : 'Ingang: —';
+      }
+
+      let html = `
+            < div > <strong>Product:</strong> ${ currentProduct.title }</div >
+        <div><strong>Support:</strong> ${state.support === 'basic' ? 'Basis (€30/mnd)' : 'Pro (€45/mnd)'}</div>
+        <div><strong>Aantal schermen:</strong> ${currentProduct.hardwareTwoPrice ? (state.screens) : '—'}</div>
+        <div style="margin-top:8px;">${dateText}</div>
+        <hr class="sep" />
+        <div class="price-row"><div>Eenmalig (hardware + installatie)</div><div>${€(prices.totalOneTime)}</div></div>
+        <div class="price-row"><div>Maandelijks (support)</div><div>${prices.totalMonthly ? €(prices.totalMonthly) + ' / mnd' : '—'}</div></div>
+        <div class="hint" style="margin-top:8px;">Na bevestiging nemen we contact met je op om details en planning door te spreken.</div>
+      `;
+      finalSummary.innerHTML = html;
+}
+
+init();
+recalcPrices();
+    </script>
+</body>
+</html>
