@@ -581,10 +581,21 @@
         const orderResult = document.getElementById('orderResult');
         const quickBack = document.getElementById('quickBack');
 
-        // --- STATE ---
-        let currentProductKey = getQueryParam('product')?.toLowerCase() || 'kiosk';
-        if (!PRODUCTS[currentProductKey]) currentProductKey = 'kiosk';
+        // --- Safe product selection ---
+        let currentProductKey = 'kiosk'; // default
+
+        try {
+            const url = new URL(window.location.href);
+            const param = url.searchParams.get('product');
+            if (param && PRODUCTS[param.toLowerCase()]) {
+                currentProductKey = param.toLowerCase();
+            }
+        } catch (e) {
+            // fallback blijft 'kiosk'
+        }
+
         let currentProduct = PRODUCTS[currentProductKey];
+
         let state = {
             support: 'basic',
             screens: 2,
