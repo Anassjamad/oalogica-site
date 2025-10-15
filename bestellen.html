@@ -331,7 +331,6 @@
                 <a class="muted" href="producten.html" style="text-decoration:none;margin-right:12px;">← Terug naar producten</a>
             </nav>
         </header>
-
         <main>
             <section class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
@@ -341,13 +340,10 @@
                     </div>
                     <div class="small">Stappen: <span id="stepIndicator">1 / 3</span></div>
                 </div>
-
                 <div class="grid" style="margin-top:18px;">
                     <!-- Left: form steps -->
                     <div>
                         <div class="form-card fade-in card-elev" id="stepContainer">
-
-                            <!-- Product summary at top -->
                             <div class="field">
                                 <label>Gekozen product</label>
                                 <div class="product-summary" id="productBoxTop">
@@ -361,14 +357,12 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- STEP 1 -->
                             <div class="step-pane" data-step="1">
                                 <div class="stepper" style="margin-top:14px;">
                                     <div class="step active">1</div>
                                     <div class="small">Pakket & Aantal schermen</div>
                                 </div>
-
                                 <div class="field">
                                     <label>Support pakket</label>
                                     <div class="toggle" id="supportToggle" role="tablist" aria-label="Support keuze">
@@ -377,13 +371,11 @@
                                     </div>
                                     <div class="note">Supportkosten zijn maandelijks. Kies het pakket dat bij je past.</div>
                                 </div>
-
                                 <div class="field" id="screensField">
                                     <label>Aantal schermen</label>
                                     <input type="number" id="screensInput" min="2" value="2" step="1" />
                                     <div class="hint">Minimaal 2 schermen. Prijs is inclusief hardware éénmalig.</div>
                                 </div>
-
                                 <div class="field">
                                     <label>Prijs overzicht</label>
                                     <div class="summary-box" id="priceSummary">
@@ -395,13 +387,11 @@
                                         <div class="price-row total"><div>Totaal maandelijks</div><div id="totalMonthly">€0,00</div></div>
                                     </div>
                                 </div>
-
                                 <div class="controls" style="margin-top:18px;">
                                     <button class="btn ghost" id="toStep2">Volgende</button>
                                     <div class="muted small">Je kunt later altijd terug</div>
                                 </div>
                             </div>
-
                             <!-- STEP 2 -->
                             <div class="step-pane" data-step="2" style="display:none;">
                                 <div class="stepper">
@@ -409,7 +399,6 @@
                                     <div class="step active">2</div>
                                     <div class="small">Datum & Tijd</div>
                                 </div>
-
                                 <div class="field">
                                     <label>Keuze</label>
                                     <div class="toggle" id="dateChoice">
@@ -418,13 +407,11 @@
                                     </div>
                                     <div class="note">Kies of je een wensdatum opgeeft of een concrete ingangsdatum en tijd.</div>
                                 </div>
-
                                 <div id="wensBlock" class="field">
                                     <label>Wensdatum</label>
                                     <input type="date" id="wensDate" />
                                     <div class="hint">Bijv. "Voor 15 december 2025".</div>
                                 </div>
-
                                 <div id="startBlock" class="field" style="display:none;">
                                     <label>Ingangsdatum</label>
                                     <input type="date" id="startDate" />
@@ -432,13 +419,11 @@
                                     <input type="time" id="startTime" />
                                     <div class="hint">Specificeer wanneer de installatie/ingang ongeveer moet plaatsvinden.</div>
                                 </div>
-
                                 <div class="controls">
                                     <button class="btn ghost" id="backTo1">Terug</button>
                                     <button class="btn" id="toStep3">Volgende</button>
                                 </div>
                             </div>
-
                             <!-- STEP 3 -->
                             <div class="step-pane" data-step="3" style="display:none;">
                                 <div class="stepper">
@@ -447,7 +432,6 @@
                                     <div class="step active">3</div>
                                     <div class="small">Gegevens & Bevestiging</div>
                                 </div>
-
                                 <form id="checkoutForm">
                                     <div class="field">
                                         <label>Contactnaam</label>
@@ -463,26 +447,21 @@
                                     </div>
                                     <div class="field">
                                         <label>Opmerking / Extra wensen</label>
-<textarea id="custNotes" placeholder="Bijv. gewenste locatie, netwerkdetails, etc."></textarea>
+                                        <textarea id="custNotes" placeholder="Bijv. gewenste locatie, netwerkdetails, etc."></textarea>
                                     </div>
-
                                     <div class="field">
                                         <label>Besteloverzicht</label>
                                         <div class="summary-box" id="finalSummary"></div>
                                     </div>
-
                                     <div class="controls">
                                         <button type="button" class="btn ghost" id="backTo2">Terug</button>
                                         <button type="submit" class="btn primary" id="placeOrderBtn">Plaats bestelling</button>
                                     </div>
                                 </form>
-
                                 <div id="orderResult"></div>
                             </div>
-
                         </div>
                     </div>
-
                     <!-- Right: product & help -->
                     <aside>
                         <div class="card product-summary fade-in">
@@ -497,19 +476,16 @@
                                     <div id="asideSupport" style="font-weight:800;margin-top:6px;">€30 / mnd</div>
                                 </div>
                             </div>
-
                             <div class="summary-box" style="margin-top:14px;">
                                 <div class="small">Snel overzicht</div>
                                 <div class="price-row"><div>Eenmalig</div><div id="asideOneTime">€0,00</div></div>
                                 <div class="price-row"><div>Maandelijks</div><div id="asideMonthly">€0,00</div></div>
                                 <div class="muted small footer-note">Na versturen nemen we contact op om alles te bevestigen en in te plannen.</div>
                             </div>
-
                             <div style="margin-top:12px;">
                                 <button class="btn" id="quickBack">Terug naar producten</button>
                             </div>
                         </div>
-
                         <div class="card" style="margin-top:14px;">
                             <div style="font-weight:700;margin-bottom:8px;">Hulp nodig?</div>
                             <div class="muted small">Bel ons: <strong style="color:var(--basic)">+31 6 12 34 56 78</strong></div>
@@ -517,22 +493,58 @@
                         </div>
                     </aside>
                 </div>
-
                 <div class="footer-note muted small">Let op: dit is een demoflow — de bestelling wordt lokaal verwerkt. Voor productie moet het formulier naar je backend of e-mail service gestuurd worden.</div>
-
             </section>
         </main>
     </div>
 
     <script>
-        // PRODUCTS
+        // --- DATA ---
         const PRODUCTS = {
-            kiosk: { key: 'kiosk', title: 'Self-Order Kiosk', short: 'De Sunmi K2 kiosken: hardware + software voor zelfbestelling.', img: 'https://file.cdn.sunmi.com/newebsite/products/k2/md/3-2.jpg', hardwareTwoPrice: 1754.50, otherOneTime: 0, supportBase: 45, tags: 'Inclusief hardware + software' },
-            qr: { key: 'qr', title: 'QR Bestelsoftware', short: 'Klanten bestellen via hun telefoon — digitale menukaart en keuken koppeling.', img: 'https://www.flexsin.com/blog/wp-content/uploads/2019/12/Custom-Software-Development.jpg', hardwareTwoPrice: null, otherOneTime: 0, supportBase: 36.50, tags: 'Maandabonnement software' },
-            maatwerk: { key: 'maatwerk', title: 'Software op Maat', short: 'Uniek project — prijs op aanvraag. Intakegesprek verplicht.', img: 'https://d2ms8rpfqc4h24.cloudfront.net/5_Things_to_Consider_while_Building_Software_027d294615.jpg', hardwareTwoPrice: null, otherOneTime: 0, supportBase: 0, tags: 'Prijs op aanvraag' }
+            kiosk: {
+                key: 'kiosk',
+                title: 'Self-Order Kiosk',
+                short: 'De Sunmi K2 kiosken: hardware + software voor zelfbestelling.',
+                img: 'https://file.cdn.sunmi.com/newebsite/products/k2/md/3-2.jpg',
+                hardwareTwoPrice: 1754.50,
+                otherOneTime: 0,
+                supportBase: 45,
+                tags: 'Inclusief hardware + software'
+            },
+            qr: {
+                key: 'qr',
+                title: 'QR Bestelsoftware',
+                short: 'Klanten bestellen via hun telefoon — digitale menukaart en keuken koppeling.',
+                img: 'https://www.flexsin.com/blog/wp-content/uploads/2019/12/Custom-Software-Development.jpg',
+                hardwareTwoPrice: null,
+                otherOneTime: 0,
+                supportBase: 36.50,
+                tags: 'Maandabonnement software'
+            },
+            maatwerk: {
+                key: 'maatwerk',
+                title: 'Software op Maat',
+                short: 'Uniek project — prijs op aanvraag. Intakegesprek verplicht.',
+                img: 'https://d2ms8rpfqc4h24.cloudfront.net/5_Things_to_Consider_while_Building_Software_027d294615.jpg',
+                hardwareTwoPrice: null,
+                otherOneTime: 0,
+                supportBase: 0,
+                tags: 'Prijs op aanvraag'
+            }
         };
-        const €=v=> { const n = Number(v) || 0; return '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
-        function getQueryParam(n) { const p = new URLSearchParams(window.location.search); return p.get(n); }
+
+        // --- HELPERS ---
+        const € = v => {
+            const n = Number(v) || 0;
+            return '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        };
+
+        function getQueryParam(name) {
+            const p = new URLSearchParams(window.location.search);
+            return p.get(name);
+        }
+
+        // --- ELEMENTS ---
         const productImg = document.getElementById('productImg');
         const productName = document.getElementById('productName');
         const productDesc = document.getElementById('productDesc');
@@ -569,12 +581,20 @@
         const orderResult = document.getElementById('orderResult');
         const quickBack = document.getElementById('quickBack');
 
-        let currentProductKey = getQueryParam('product') || 'kiosk';
+        // --- STATE ---
+        let currentProductKey = getQueryParam('product')?.toLowerCase() || 'kiosk';
         if (!PRODUCTS[currentProductKey]) currentProductKey = 'kiosk';
         let currentProduct = PRODUCTS[currentProductKey];
+        let state = {
+            support: 'basic',
+            screens: 2,
+            dateMode: 'wens',
+            wensDate: '',
+            startDate: '',
+            startTime: ''
+        };
 
-        let state = { support: 'basic', screens: 2, dateMode: 'wens', wensDate: '', startDate: '', startTime: '' };
-
+        // --- FUNCTIONS ---
         function init() {
             productImg.src = currentProduct.img;
             productName.textContent = currentProduct.title;
@@ -583,52 +603,182 @@
             asideProductName.textContent = currentProduct.title;
             asideProductTag.textContent = currentProduct.tags;
 
-            if (!currentProduct.hardwareTwoPrice) { screensField.style.display = 'none'; } else { screensField.style.display = ''; screensInput.value = 2; state.screens = 2; }
+            if (!currentProduct.hardwareTwoPrice) {
+                screensField.style.display = 'none';
+            } else {
+                screensField.style.display = '';
+                screensInput.value = 2;
+                state.screens = 2;
+            }
+
             asideSupport.textContent = '€30 / mnd';
 
-            // support
-            supportPills.forEach(p => p.addEventListener('click', () => { supportPills.forEach(x => x.classList.remove('active')); p.classList.add('active'); state.support = p.getAttribute('data-value'); recalcPrices(); }));
+            // support pills
+            supportPills.forEach(p => {
+                p.addEventListener('click', () => {
+                    supportPills.forEach(x => x.classList.remove('active'));
+                    p.classList.add('active');
+                    state.support = p.getAttribute('data-value');
+                    recalcPrices();
+                });
+            });
+
             // date pills
-            datePills.forEach(p => p.addEventListener('click', () => { datePills.forEach(x => x.classList.remove('active')); p.classList.add('active'); state.dateMode = p.getAttribute('data-value'); updateDateBlocks(); }));
+            datePills.forEach(p => {
+                p.addEventListener('click', () => {
+                    datePills.forEach(x => x.classList.remove('active'));
+                    p.classList.add('active');
+                    state.dateMode = p.getAttribute('data-value');
+                    updateDateBlocks();
+                });
+            });
 
-            screensInput.addEventListener('input', () => { let v = parseInt(screensInput.value) || 2; if (v < 2) v = 2; screensInput.value = v; state.screens = v; recalcPrices(); });
+            // screens input
+            screensInput.addEventListener('input', () => {
+                let v = parseInt(screensInput.value) || 2;
+                if (v < 2) v = 2;
+                screensInput.value = v;
+                state.screens = v;
+                recalcPrices();
+            });
 
+            // step navigation
             toStep2Btn.addEventListener('click', () => goToStep(2));
             backTo1Btn.addEventListener('click', () => goToStep(1));
-            toStep3Btn.addEventListener('click', () => { if (currentProduct.hardwareTwoPrice && state.screens < 2) { alert('Aantal schermen moet minimaal 2 zijn.'); return; } goToStep(3); populateFinalSummary(); });
+            toStep3Btn.addEventListener('click', () => {
+                if (currentProduct.hardwareTwoPrice && state.screens < 2) {
+                    alert('Aantal schermen moet minimaal 2 zijn.');
+                    return;
+                }
+                goToStep(3);
+                populateFinalSummary();
+            });
             backTo2Btn.addEventListener('click', () => goToStep(2));
-            quickBack.addEventListener('click', () => { window.location.href = 'producten.html'; });
+            quickBack.addEventListener('click', () => window.location.href = 'producten.html');
 
             wensDate.addEventListener('change', () => state.wensDate = wensDate.value);
             startDate.addEventListener('change', () => state.startDate = startDate.value);
             startTime.addEventListener('change', () => state.startTime = startTime.value);
 
             checkoutForm.addEventListener('submit', e => {
-                e.preventDefault(); const name = document.getElementById('custName').value.trim(); const email = document.getElementById('custEmail').value.trim(); if (!name || !email) { alert('Vul naam en email in.'); return; } const payload = { product: currentProduct.key, productName: currentProduct.title, support: state.support, screens: state.screens, wensDate: state.wensDate, startDate: state.startDate, startTime: state.startTime, contact: { name, email, phone: document.getElementById('custPhone').value.trim(), notes: document.getElementById('custNotes').value.trim() }, prices: computePrices() }; orderResult.innerHTML = `<div class="success">Bedankt — je bestelling is verzonden!<div class="muted small" style="margin-top:8px;">We nemen binnen 1-2 werkdagen contact met je op om alles te bevestigen en in te plannen.</div></div>`; const details = document.createElement('div'); details.className = 'summary-box'; details.style.marginTop = '12px'; details.innerHTML = `<strong>Samenvatting:</strong>
-<div style="margin-top:6px;">Product: ${payload.productName}</div>
-<div>Aantal schermen: ${payload.screens || '—'}</div>
-<div>Support: ${payload.support}</div>
-<div>Wensdatum: ${payload.wensDate || '—'}</div>
-<div>Ingangsdatum/tijd: ${payload.startDate || '—'} ${payload.startTime || ''}</div>
-<div style="margin-top:8px;">Totaal eenmalig: ${€(payload.prices.totalOneTime)
-            }</div >
-            <div>Totaal maandelijks: ${€(payload.prices.totalMonthly)}</div>`; orderResult.appendChild(details); document.getElementById('placeOrderBtn').disabled=true; document.getElementById('placeOrderBtn').textContent='Verzonden';});
+                e.preventDefault();
+                const name = document.getElementById('custName').value.trim();
+                const email = document.getElementById('custEmail').value.trim();
+                if (!name || !email) { alert('Vul naam en email in.'); return; }
 
-goToStep(1); recalcPrices();
+                const payload = {
+                    product: currentProduct.key,
+                    productName: currentProduct.title,
+                    support: state.support,
+                    screens: state.screens,
+                    wensDate: state.wensDate,
+                    startDate: state.startDate,
+                    startTime: state.startTime,
+                    contact: {
+                        name,
+                        email,
+                        phone: document.getElementById('custPhone').value.trim(),
+                        notes: document.getElementById('custNotes').value.trim()
+                    },
+                    prices: computePrices()
+                };
+
+                orderResult.innerHTML = `<div class="success">Bedankt — je bestelling is verzonden!<div class="muted small" style="margin-top:8px;">We nemen binnen 1-2 werkdagen contact met je op om alles te bevestigen en in te plannen.</div></div>`;
+
+                const details = document.createElement('div');
+                details.className = 'summary-box';
+                details.style.marginTop = '12px';
+                details.innerHTML = `
+          <strong>Samenvatting:</strong>
+          <div style="margin-top:6px;">Product: ${payload.productName}</div>
+          <div>Aantal schermen: ${payload.screens || '—'}</div>
+          <div>Support: ${payload.support}</div>
+          <div>Wensdatum: ${payload.wensDate || '—'}</div>
+          <div>Ingangsdatum/tijd: ${payload.startDate || '—'} ${payload.startTime || ''}</div>
+          <div style="margin-top:8px;">Totaal eenmalig: ${€(payload.prices.totalOneTime)
+            }</div >
+            <div>Totaal maandelijks: ${€(payload.prices.totalMonthly)}</div>
+        `;
+        orderResult.appendChild(details);
+        document.getElementById('placeOrderBtn').disabled=true;
+        document.getElementById('placeOrderBtn').textContent='Verzonden';
+      });
+
+      goToStep(1);
+      recalcPrices();
 }
 
-function goToStep(n){stepPanes.forEach(p=>p.style.display=(p.getAttribute('data-step')==n?'':'none')); stepIndicator.textContent=`${ n } / 3`; document.getElementById('stepContainer').scrollIntoView({behavior:'smooth'});}
-function computePrices(){let hardwareOneTime=0; let otherOneTime=currentProduct.otherOneTime||0; let supportMonthly=0; if(state.support==='basic')supportMonthly=30.00; else if(state.support==='pro')supportMonthly=45.00; if(currentProduct.supportBase&&currentProduct.supportBase>0){if(state.support==='basic'&&currentProduct.supportBase>supportMonthly)supportMonthly=currentProduct.supportBase;} if(currentProduct.hardwareTwoPrice){const pricePerScreen=Number(currentProduct.hardwareTwoPrice)/2.0; const screens=Math.max(2,Number(state.screens)||2); hardwareOneTime=pricePerScreen*screens;} else{hardwareOneTime=0;} const totalOneTime=Number(hardwareOneTime)+Number(otherOneTime); const totalMonthly=Number(supportMonthly); return {hardwareOneTime:Number(hardwareOneTime), otherOneTime:Number(otherOneTime), supportMonthly:Number(supportMonthly), totalOneTime:Number(totalOneTime), totalMonthly:Number(totalMonthly)}}
-function recalcPrices(){const p=computePrices(); hardwarePriceEl.textContent=p.hardwareOneTime?€(p.hardwareOneTime):'—'; supportPriceEl.textContent=p.supportMonthly?€(p.supportMonthly)+' / maand':'—'; otherPriceEl.textContent=p.otherOneTime?€(p.otherOneTime):'—'; totalOnetimeEl.textContent=€(p.totalOneTime); totalMonthlyEl.textContent=p.totalMonthly?€(p.totalMonthly)+' / maand':'—'; asideOneTime.textContent=€(p.totalOneTime); asideMonthly.textContent=p.totalMonthly?€(p.totalMonthly)+' / maand':'—'; asideSupport.textContent=p.supportMonthly?€(p.supportMonthly)+' / mnd':'—';}
-function updateDateBlocks(){if(state.dateMode==='wens'){wensBlock.style.display=''; startBlock.style.display='none';} else{wensBlock.style.display='none'; startBlock.style.display='';}}
-function populateFinalSummary(){const prices=computePrices(); let dateText=''; if(state.dateMode==='wens'){dateText=state.wensDate?`Wensdatum: ${ state.wensDate }`:'Wensdatum: —';} else{dateText=(state.startDate||state.startTime)?`Ingang: ${ state.startDate || '—' } ${ state.startTime || '' }`:'Ingang: —';} let html=` < div > <strong>Product:</strong> ${ currentProduct.title }</div >
-<div><strong>Support:</strong> ${state.support==='basic'?'Basis (€30/mnd)':'Pro (€45/mnd)'}</div>
-<div><strong>Aantal schermen:</strong> ${currentProduct.hardwareTwoPrice?(state.screens):'—'}</div>
-<div style="margin-top:8px;">${dateText}</div>
-<hr class="sep" />
-<div class="price-row"><div>Eenmalig (hardware + installatie)</div><div>${€(prices.totalOneTime)}</div></div>
-<div class="price-row"><div>Maandelijks (support)</div><div>${prices.totalMonthly?€(prices.totalMonthly)+' / mnd':'—'}</div></div>
-<div class="hint" style="margin-top:8px;">Na bevestiging nemen we contact met je op om details en planning door te spreken.</div>`; finalSummary.innerHTML=html;}
+function goToStep(n){
+      stepPanes.forEach(p=>p.style.display=(p.getAttribute('data-step')==n?'':'none'));
+      stepIndicator.textContent=`${ n } / 3`;
+      document.getElementById('stepContainer').scrollIntoView({behavior:'smooth'});
+}
+
+function computePrices(){
+      let hardwareOneTime=0;
+      let otherOneTime=currentProduct.otherOneTime||0;
+      let supportMonthly=state.support==='basic'?30:45;
+
+      if(currentProduct.supportBase && currentProduct.supportBase>0){
+        if(state.support==='basic' && currentProduct.supportBase>supportMonthly) supportMonthly=currentProduct.supportBase;
+      }
+
+      if(currentProduct.hardwareTwoPrice){
+        const pricePerScreen=Number(currentProduct.hardwareTwoPrice)/2.0;
+        const screens=Math.max(2,Number(state.screens)||2);
+        hardwareOneTime=pricePerScreen*screens;
+      }
+
+      const totalOneTime=hardwareOneTime+otherOneTime;
+      const totalMonthly=supportMonthly;
+
+      return { hardwareOneTime, otherOneTime, supportMonthly, totalOneTime, totalMonthly };
+}
+
+function recalcPrices(){
+      const p=computePrices();
+      hardwarePriceEl.textContent=p.hardwareOneTime?€(p.hardwareOneTime):'—';
+      supportPriceEl.textContent=p.supportMonthly?€(p.supportMonthly)+' / maand':'—';
+      otherPriceEl.textContent=p.otherOneTime?€(p.otherOneTime):'—';
+      totalOnetimeEl.textContent=€(p.totalOneTime);
+      totalMonthlyEl.textContent=p.totalMonthly?€(p.totalMonthly)+' / maand':'—';
+      asideOneTime.textContent=€(p.totalOneTime);
+      asideMonthly.textContent=p.totalMonthly?€(p.totalMonthly)+' / maand':'—';
+      asideSupport.textContent=p.supportMonthly?€(p.supportMonthly)+' / mnd':'—';
+}
+
+function updateDateBlocks(){
+      if(state.dateMode==='wens'){
+        wensBlock.style.display='';
+        startBlock.style.display='none';
+      } else {
+        wensBlock.style.display='none';
+        startBlock.style.display='';
+      }
+}
+
+function populateFinalSummary(){
+      const prices=computePrices();
+      let dateText='';
+      if(state.dateMode==='wens'){
+        dateText=state.wensDate?`Wensdatum: ${ state.wensDate }`:'Wensdatum: —';
+      } else {
+        dateText=(state.startDate||state.startTime)?`Ingang: ${ state.startDate || '—' } ${ state.startTime || '' }`:'Ingang: —';
+      }
+      const html=`
+            < div > <strong>Product:</strong> ${ currentProduct.title }</div >
+        <div><strong>Support:</strong> ${state.support==='basic'?'Basis (€30/mnd)':'Pro (€45/mnd)'}</div>
+        <div><strong>Aantal schermen:</strong> ${currentProduct.hardwareTwoPrice?(state.screens):'—'}</div>
+        <div style="margin-top:8px;">${dateText}</div>
+        <hr class="sep" />
+        <div class="price-row"><div>Eenmalig (hardware + installatie)</div><div>${€(prices.totalOneTime)}</div></div>
+        <div class="price-row"><div>Maandelijks (support)</div><div>${prices.totalMonthly?€(prices.totalMonthly)+' / mnd':'—'}</div></div>
+        <div class="hint" style="margin-top:8px;">Na bevestiging nemen we contact met je op om details en planning door te spreken.</div>
+      `;
+      finalSummary.innerHTML=html;
+}
+
+// --- INIT ---
 init();
     </script>
 </body>
