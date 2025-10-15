@@ -1,223 +1,214 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bestellen — oa Logica</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bestellen — OA Logica</title>
     <style>
+        :root {
+            --accent: #2563eb;
+            --bg: #0f172a;
+            --card: #0b1220;
+            --muted: #94a3b8;
+            --basic: #22c55e;
+            --kiosk: #f59e0b;
+            --pro: #7c3aed;
+        }
+
         body {
-            font-family: sans-serif;
-            background: #071022;
-            color: #e6eef8;
             margin: 0;
-            padding: 0;
+            font-family: Inter,sans-serif;
+            background: var(--bg);
+            color: #e6eef8;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 30px auto;
+            max-width: 800px;
+            margin: 40px auto;
             padding: 20px;
         }
 
-        .card {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        h1 {
+            margin-bottom: 24px;
         }
 
-        h1, h2, h3 {
-            margin: 0 0 10px 0;
+        .step {
+            display: none;
         }
 
-        img {
-            max-width: 100px;
-            border-radius: 8px;
-        }
+            .step.active {
+                display: block;
+            }
 
-        button {
-            padding: 8px 14px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            background: #2563eb;
-            color: white;
-            font-weight: 600;
-            margin-top: 10px;
+        label {
+            display: block;
+            margin-top: 16px;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-top: 6px;
             border-radius: 6px;
             border: none;
-            background: #0f172a;
+            background: #1e293b;
             color: white;
         }
 
-        .summary-box {
-            background: rgba(255,255,255,0.02);
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 10px;
+        button {
+            margin-top: 24px;
+            padding: 12px 20px;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 20px;
-        }
-
-        @media(max-width:980px) {
-            .grid {
-                grid-template-columns: 1fr;
+            button:hover {
+                opacity: 0.9;
             }
-        }
 
-        .hidden {
-            display: none;
+        .summary {
+            margin-top: 16px;
+            background: #0b1220;
+            padding: 12px;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bestelpagina</h1>
-        <div class="grid">
-            <div>
-                <div class="card">
-                    <h2 id="productTitle">Product naam</h2>
-                    <img id="productImg" src="" alt="Product afbeelding">
-                    <p id="productDesc"></p>
-                    <p id="productTags" class="summary-box"></p>
+        <h1>Bestelling plaatsen</h1>
 
-                    <div id="screensField">
-                        <label>Aantal schermen</label>
-                        <input type="number" id="screensInput" min="2" value="2">
-                    </div>
+        <div id="step1" class="step active">
+            <h2>Stap 1: Kiosk</h2>
+            <label for="kioskType">Kies type:</label>
+            <select id="kioskType">
+                <option value="Basis" data-price="54.45">Basis (€54,45)</option>
+                <option value="Pro" data-price="69.95">Pro (€69,95) + support</option>
+            </select>
+            <label for="kioskAantal">Aantal kiosken:</label>
+            <input type="number" id="kioskAantal" value="1" min="1">
+            <button id="next1">Volgende</button>
+        </div>
 
-                    <label>Support pakket</label>
-                    <select id="supportSelect">
-                        <option value="basic">Basis Support — €30 / maand</option>
-                        <option value="pro">Pro Support — €45 / maand</option>
-                    </select>
+        <div id="step2" class="step">
+            <h2>Stap 2: Integratie</h2>
+            <label for="integratieOptie">Kies een optie:</label>
+            <select id="integratieOptie">
+                <option value="Simpele pagina" data-price="0">Simpele pagina (gratis)</option>
+                <option value="Offerte" data-price="0">Vraag een offerte op</option>
+                <option value="Ons kassa systeem" data-price="605">Gebruik ons kassa systeem (€605)</option>
+            </select>
+            <button id="back2">Terug</button>
+            <button id="next2">Volgende</button>
+        </div>
 
-                    <h3>Contact gegevens</h3>
-                    <label>Naam</label>
-                    <input type="text" id="custName" placeholder="Jouw naam">
-                    <label>Email</label>
-                    <input type="email" id="custEmail" placeholder="naam@voorbeeld.nl">
-                    <label>Telefoon (optioneel)</label>
-                    <input type="text" id="custPhone" placeholder="06 12345678">
-                    <label>Opmerking / extra wensen</label>
-                    <textarea id="custNotes"></textarea>
-
-                    <button id="placeOrderBtn">Plaats bestelling</button>
-                    <div id="orderResult" class="summary-box hidden"></div>
-                </div>
-            </div>
-
-            <aside>
-                <div class="card">
-                    <h3>Bestel overzicht</h3>
-                    <p id="asideProductName">—</p>
-                    <p id="asideProductTag" class="summary-box">—</p>
-                    <div class="summary-box">
-                        <div>Eenmalig: <span id="asideOneTime">€0,00</span></div>
-                        <div>Maandelijks: <span id="asideMonthly">€0,00</span></div>
-                    </div>
-                </div>
-            </aside>
+        <div id="step3" class="step">
+            <h2>Stap 3: Gegevens</h2>
+            <label for="naam">Naam</label>
+            <input type="text" id="naam" required placeholder="Jouw naam">
+            <label for="email">Email</label>
+            <input type="email" id="email" required placeholder="Jouw email">
+            <label for="telefoon">Telefoonnummer</label>
+            <input type="tel" id="telefoon" placeholder="Optioneel">
+            <label for="opmerking">Opmerking</label>
+            <textarea id="opmerking" placeholder="Eventuele extra opmerkingen"></textarea>
+            <div class="summary" id="orderSummary"></div>
+            <button id="back3">Terug</button>
+            <button id="submitOrder">Bestel</button>
+            <div id="formMessage" style="margin-top:12px;color:#22c55e;font-weight:600;"></div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        const API_BASE = 'https://bestel-backend.onrender.com/oa-logica';
+        let selectedProduct = null;
+        let productId = new URLSearchParams(window.location.search).get('productId');
 
-            // --- DATA ---
-            const PRODUCTS = {
-                kiosk: { title: 'Self-Order Kiosk', desc: 'De Sunmi K2 kiosken: hardware + software voor zelfbestelling.', img: 'https://file.cdn.sunmi.com/newebsite/products/k2/md/3-2.jpg', hardwarePrice: 1754.50, supportBase: 30, tags: 'Inclusief hardware + software' },
-                qr: { title: 'QR Bestelsoftware', desc: 'Klanten bestellen via hun telefoon — digitale menukaart en keuken koppeling.', img: 'https://www.flexsin.com/blog/wp-content/uploads/2019/12/Custom-Software-Development.jpg', hardwarePrice: 0, supportBase: 36.50, tags: 'Maandabonnement software' },
-                maat: { title: 'Software op Maat', desc: 'Uniek project — prijs op aanvraag. Intakegesprek verplicht.', img: 'https://d2ms8rpfqc4h24.cloudfront.net/5_Things_to_Consider_while_Building_Software_027d294615.jpg', hardwarePrice: 0, supportBase: 0, tags: 'Prijs op aanvraag' }
-            };
+        async function fetchProduct() {
+            if (!productId) {
+                alert('Geen product geselecteerd.');
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/products`);
+                const products = await res.json();
+                selectedProduct = products.find(p => p._id === productId);
+                if (!selectedProduct) alert('Product niet gevonden.');
+            } catch (err) {
+                console.error(err);
+                alert('Fout bij ophalen product.');
+            }
+        }
+        fetchProduct();
 
-            const € = v=> '€' + (Number(v) || 0).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        // Navigatie tussen stappen
+        document.getElementById('next1').addEventListener('click', () => {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        });
+        document.getElementById('back2').addEventListener('click', () => {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        });
+        document.getElementById('next2').addEventListener('click', () => {
+            updateSummary();
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+        });
+        document.getElementById('back3').addEventListener('click', () => {
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        });
 
-            // --- GET PRODUCT PARAM ---
-            let param = new URLSearchParams(window.location.search).get('product')?.toLowerCase() || 'kiosk';
-            if (!PRODUCTS[param]) param = 'kiosk';
-            let currentProduct = PRODUCTS[param];
+        // Update order summary
+        function updateSummary() {
+            const type = document.getElementById('kioskType');
+            const aantal = document.getElementById('kioskAantal').value;
+            const integratie = document.getElementById('integratieOptie');
 
-            // --- ELEMENTS ---
-            const productTitle = document.getElementById('productTitle');
-            const productImg = document.getElementById('productImg');
-            const productDesc = document.getElementById('productDesc');
-            const productTags = document.getElementById('productTags');
-            const screensField = document.getElementById('screensField');
-            const screensInput = document.getElementById('screensInput');
-            const supportSelect = document.getElementById('supportSelect');
-            const asideProductName = document.getElementById('asideProductName');
-            const asideProductTag = document.getElementById('asideProductTag');
-            const asideOneTime = document.getElementById('asideOneTime');
-            const asideMonthly = document.getElementById('asideMonthly');
-            const placeOrderBtn = document.getElementById('placeOrderBtn');
-            const orderResult = document.getElementById('orderResult');
+            let totalPrice = (parseFloat(type.selectedOptions[0].dataset.price) * aantal) + parseFloat(integratie.selectedOptions[0].dataset.price);
 
-            // --- INIT PRODUCT ---
-            function initProduct() {
-                productTitle.textContent = currentProduct.title;
-                productImg.src = currentProduct.img;
-                productDesc.textContent = currentProduct.desc;
-                productTags.textContent = currentProduct.tags;
-                asideProductName.textContent = currentProduct.title;
-                asideProductTag.textContent = currentProduct.tags;
-                if (!currentProduct.hardwarePrice) { screensField.classList.add('hidden'); }
-                recalcPrices();
+            document.getElementById('orderSummary').innerHTML = `
+            <strong>Product:</strong> ${selectedProduct.naam} <br>
+            <strong>Kiosk:</strong> ${type.value} x ${aantal} <br>
+            <strong>Integratie:</strong> ${integratie.value} <br>
+            <strong>Totaalprijs:</strong> €${totalPrice.toFixed(2)}
+        `;
+        }
+
+        // Bestelling verzenden
+        document.getElementById('submitOrder').addEventListener('click', async () => {
+            const naam = document.getElementById('naam').value;
+            const email = document.getElementById('email').value;
+            const telefoon = document.getElementById('telefoon').value;
+            const opmerking = document.getElementById('opmerking').value;
+            const quantity = parseInt(document.getElementById('kioskAantal').value);
+            const integratie = document.getElementById('integratieOptie').value;
+
+            if (!naam || !email || !selectedProduct) {
+                alert('Naam, email en product zijn verplicht.');
+                return;
             }
 
-            // --- COMPUTE & UPDATE PRICES ---
-            function computePrices() {
-                let screens = Number(screensInput.value) || 2;
-                let support = supportSelect.value === 'basic' ? 30 : 45;
-                let hardware = currentProduct.hardwarePrice || 0;
-                if (currentProduct.title === 'Self-Order Kiosk') {
-                    hardware = (hardware / 2) * screens;
-                }
-                return { hardware, totalMonthly: support, totalOneTime: hardware };
+            const payload = { naam, email, telefoon, productId: selectedProduct._id, quantity, integratie, opmerking };
+
+            try {
+                const res = await fetch(`${API_BASE}/order`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                document.getElementById('formMessage').textContent = data.message || 'Bestelling geplaatst!';
+            } catch (err) {
+                console.error(err);
+                document.getElementById('formMessage').textContent = '⛔ Er is iets misgegaan.';
             }
-            function recalcPrices() {
-                const p = computePrices();
-                asideOneTime.textContent = €(p.totalOneTime);
-                asideMonthly.textContent = €(p.totalMonthly);
-            }
-
-            // --- PLACE ORDER ---
-            placeOrderBtn.addEventListener('click', () => {
-                const name = document.getElementById('custName').value.trim();
-                const email = document.getElementById('custEmail').value.trim();
-                if (!name || !email) { alert('Vul naam en email in'); return; }
-                const prices = computePrices();
-                orderResult.classList.remove('hidden');
-                orderResult.innerHTML = `
-        <strong>Bedankt! Je bestelling is verzonden.</strong><br>
-        Product: ${currentProduct.title}<br>
-        Schermen: ${screensInput.value || '—'}<br>
-        Support: ${supportSelect.value}<br>
-        Totaal eenmalig: ${€(prices.totalOneTime)
-            }<br>
-                Totaal maandelijks: ${€(prices.totalMonthly)}
-                `;
-                placeOrderBtn.disabled=true;
-                placeOrderBtn.textContent='Verzonden';
-});
-
-                // --- EVENTS ---
-                screensInput.addEventListener('input',recalcPrices);
-                supportSelect.addEventListener('change',recalcPrices);
-
-                initProduct();
-});
+        });
     </script>
 </body>
 </html>
