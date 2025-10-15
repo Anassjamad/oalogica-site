@@ -29,8 +29,30 @@
         }
 
         h1 {
-            margin-bottom: 24px;
+            margin-bottom: 12px;
         }
+
+        h2 {
+            margin-top: 24px;
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+        }
+
+            .product-header img {
+                width: 120px;
+                height: 80px;
+                border-radius: 8px;
+                object-fit: cover;
+            }
 
         .step {
             display: none;
@@ -80,7 +102,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Bestelling plaatsen</h1>
+        <div id="productInfo" class="product-header" style="display:none;">
+            <img id="productImage" src="" alt="Product">
+            <div>
+                <h1 id="productName"></h1>
+                <p id="productPrice" class="muted"></p>
+            </div>
+        </div>
 
         <div id="step1" class="step active">
             <h2>Stap 1: Kiosk</h2>
@@ -126,21 +154,35 @@
     <script>
         const API_BASE = 'https://bestel-backend.onrender.com/oa-logica';
         let selectedProduct = null;
-        let productId = new URLSearchParams(window.location.search).get('productId');
+        const productId = new URLSearchParams(window.location.search).get('productId');
 
+        // Als er geen productId is → redirect
+        if (!productId) {
+            window.location.href = 'producten.html';
+        }
+
+        // Product ophalen
         async function fetchProduct() {
-            if (!productId) {
-                alert('Geen product geselecteerd.');
-                return;
-            }
             try {
                 const res = await fetch(`${API_BASE}/products`);
                 const products = await res.json();
                 selectedProduct = products.find(p => p._id === productId);
-                if (!selectedProduct) alert('Product niet gevonden.');
+
+                // Als er geen product gevonden wordt → redirect
+                if (!selectedProduct) {
+                    window.location.href = 'producten.html';
+                    return;
+                }
+
+                // Toon product info bovenaan
+                document.getElementById('productInfo').style.display = 'flex';
+                document.getElementById('productName').textContent = selectedProduct.naam;
+                document.getElementById('productImage').src = selectedProduct.image;
+                document.getElementById('productPrice').textContent = selectedProduct.prijs.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' });
+
             } catch (err) {
                 console.error(err);
-                alert('Fout bij ophalen product.');
+                window.location.href = 'producten.html';
             }
         }
         fetchProduct();
@@ -164,19 +206,21 @@
             document.getElementById('step2').classList.add('active');
         });
 
-        // Update order summary
+        // Samenvatting bijwerken
         function updateSummary() {
             const type = document.getElementById('kioskType');
             const aantal = document.getElementById('kioskAantal').value;
             const integratie = document.getElementById('integratieOptie');
 
-            let totalPrice = (parseFloat(type.selectedOptions[0].dataset.price) * aantal) + parseFloat(integratie.selectedOptions[0].dataset.price);
+            const typePrijs = parseFloat(type.selectedOptions[0].dataset.price);
+            const integratiePrijs = parseFloat(integratie.selectedOptions[0].dataset.price);
+            const totaal = (typePrijs * aantal) + integratiePrijs;
 
             document.getElementById('orderSummary').innerHTML = `
             <strong>Product:</strong> ${selectedProduct.naam} <br>
-            <strong>Kiosk:</strong> ${type.value} x ${aantal} <br>
+            <strong>Kiosk:</strong> ${type.value} × ${aantal} <br>
             <strong>Integratie:</strong> ${integratie.value} <br>
-            <strong>Totaalprijs:</strong> €${totalPrice.toFixed(2)}
+            <strong>Totaal:</strong> €${totaal.toFixed(2)}
         `;
         }
 
@@ -189,12 +233,20 @@
             const quantity = parseInt(document.getElementById('kioskAantal').value);
             const integratie = document.getElementById('integratieOptie').value;
 
-            if (!naam || !email || !selectedProduct) {
-                alert('Naam, email en product zijn verplicht.');
+            if (!naam || !email) {
+                alert('Naam en email zijn verplicht.');
                 return;
             }
 
-            const payload = { naam, email, telefoon, productId: selectedProduct._id, quantity, integratie, opmerking };
+            const payload = {
+                naam,
+                email,
+                telefoon,
+                opmerking,
+                productId: selectedProduct._id,
+                quantity,
+                integratie
+            };
 
             try {
                 const res = await fetch(`${API_BASE}/order`, {
@@ -203,7 +255,7 @@
                     body: JSON.stringify(payload)
                 });
                 const data = await res.json();
-                document.getElementById('formMessage').textContent = data.message || 'Bestelling geplaatst!';
+                document.getElementById('formMessage').textContent = data.message || '✅ Bestelling geplaatst!';
             } catch (err) {
                 console.error(err);
                 document.getElementById('formMessage').textContent = '⛔ Er is iets misgegaan.';
