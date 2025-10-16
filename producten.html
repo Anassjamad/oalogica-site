@@ -78,9 +78,9 @@
             transition: color 0.3s;
         }
 
-            nav a:hover {
-                color: white;
-            }
+        nav a:hover {
+            color: white;
+        }
 
         .card {
             background: rgba(255,255,255,0.04);
@@ -111,22 +111,14 @@
             animation: fadeUp 0.5s ease forwards;
         }
 
-            .product-card.qr {
-                border-left: 4px solid var(--accent);
-            }
+        .product-card.qr { border-left: 4px solid var(--accent); }
+        .product-card.kiosk { border-left: 4px solid var(--kiosk); }
+        .product-card.pro { border-left: 4px solid var(--pro); }
 
-            .product-card.kiosk {
-                border-left: 4px solid var(--kiosk);
-            }
-
-            .product-card.pro {
-                border-left: 4px solid var(--pro);
-            }
-
-            .product-card:hover {
-                transform: translateY(-4px);
-                background: rgba(255,255,255,0.08);
-            }
+        .product-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.08);
+        }
 
         img.product-img {
             width: 100%;
@@ -153,11 +145,11 @@
             animation: glowPulse 2s infinite alternate;
         }
 
-            .btn:hover {
-                transform: translateY(-2px) scale(1.03);
-                background: #1d4ed8;
-                box-shadow: 0 0 25px var(--accent-glow);
-            }
+        .btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            background: #1d4ed8;
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
 
         footer {
             margin-top: 40px;
@@ -168,32 +160,19 @@
 
         /* Animaties */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes glowPulse {
             from {
                 box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
             }
-
             to {
                 box-shadow: 0 0 25px var(--accent-glow), 0 0 45px var(--accent-glow);
             }
@@ -207,7 +186,7 @@
                 <div class="logo">LG</div>
                 <div>
                     <h1>oa Logica</h1>
-                    <div class="muted">Ontwikkelend & Automatiserend Logica— innovatieve horecaoplossingen</div>
+                    <div class="muted">Ontwikkelend & automatiserend — innovatieve horecaoplossingen</div>
                 </div>
             </div>
             <nav>
@@ -229,7 +208,7 @@
         </main>
 
         <footer>
-            <div class="muted">© O&AL — Ontwikkelend & automatiserend</div>
+            <div class="muted">© oa Logica — Ontwikkelend & automatiserend</div>
         </footer>
     </div>
 
@@ -256,14 +235,14 @@
                 card.style.animationDelay = `${i * 0.1}s`;
 
                 card.innerHTML = `
-                        <img class="product-img" src="${p.image}" alt="${p.naam}" />
-                        <h3>${p.naam}</h3>
-                        <p class="muted">${p.prijs.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })}</p>
-                        <ul class="features" style="list-style:none; padding-left:0; color: var(--muted); margin:12px 0;">
-                            ${p.features.map(f => `<li>✔ ${f}</li>`).join('')}
-                        </ul>
-                        <button class="btn">Bekijk product</button>
-                    `;
+                    <img class="product-img" src="${p.image}" alt="${p.naam}" />
+                    <h3>${p.naam}</h3>
+                    <p class="muted">${p.prijs.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })}</p>
+                    <ul class="features" style="list-style:none; padding-left:0; color: var(--muted); margin:12px 0;">
+                        ${p.features.map(f => `<li>✔ ${f}</li>`).join('')}
+                    </ul>
+                    <button class="btn">Bekijk product</button>
+                `;
 
                 card.querySelector('.btn').addEventListener('click', () => {
                     window.location.href = `https://oalogica-site.vercel.app/bestellen.html?productId=${p._id}`;
