@@ -7,6 +7,7 @@
     <style>
         :root {
             --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.6);
             --bg: #0f172a;
             --card: #0b1220;
             --muted: #94a3b8;
@@ -25,7 +26,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 32px auto;
             padding: 24px;
             animation: fadeIn 0.8s ease forwards;
@@ -81,10 +82,6 @@
                 color: white;
             }
 
-        .hero h2 {
-            margin-bottom: 6px;
-        }
-
         .card {
             background: rgba(255,255,255,0.04);
             padding: 24px;
@@ -94,8 +91,8 @@
         }
 
         .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 22px;
             margin-top: 24px;
         }
@@ -115,19 +112,19 @@
         }
 
             .product-card.qr {
-                border-top: 4px solid var(--accent);
+                border-left: 4px solid var(--accent);
             }
 
             .product-card.kiosk {
-                border-top: 4px solid var(--kiosk);
+                border-left: 4px solid var(--kiosk);
             }
 
             .product-card.pro {
-                border-top: 4px solid var(--pro);
+                border-left: 4px solid var(--pro);
             }
 
             .product-card:hover {
-                transform: translateY(-6px) scale(1.02);
+                transform: translateY(-4px);
                 background: rgba(255,255,255,0.08);
             }
 
@@ -136,25 +133,30 @@
             border-radius: 12px;
             margin-bottom: 12px;
             object-fit: cover;
-            height: 180px;
+            height: 220px;
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 16px;
-            border-radius: 8px;
+            padding: 12px 18px;
+            border-radius: 10px;
             background: var(--accent);
             color: white;
             text-decoration: none;
-            transition: 0.2s;
+            transition: 0.3s;
             border: none;
             font-size: 15px;
-            margin-top: auto;
+            font-weight: 600;
+            margin-top: 16px;
+            align-self: flex-start;
+            box-shadow: 0 0 15px var(--accent-glow);
+            animation: glowPulse 2s infinite alternate;
         }
 
             .btn:hover {
-                transform: translateY(-2px);
+                transform: translateY(-2px) scale(1.03);
                 background: #1d4ed8;
+                box-shadow: 0 0 25px var(--accent-glow);
             }
 
         footer {
@@ -186,6 +188,16 @@
                 transform: translateY(0);
             }
         }
+
+        @keyframes glowPulse {
+            from {
+                box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+            }
+
+            to {
+                box-shadow: 0 0 25px var(--accent-glow), 0 0 45px var(--accent-glow);
+            }
+        }
     </style>
 </head>
 <body>
@@ -195,7 +207,7 @@
                 <div class="logo">LG</div>
                 <div>
                     <h1>oa Logica</h1>
-                    <div class="muted">Ontwikkelend & automatiserend — innovatieve horecaoplossingen</div>
+                    <div class="muted">Ontwikkelend & Automatiserend Logica— innovatieve horecaoplossingen</div>
                 </div>
             </div>
             <nav>
@@ -217,7 +229,7 @@
         </main>
 
         <footer>
-            <div class="muted">© oa Logica — Ontwikkelend & automatiserend</div>
+            <div class="muted">© O&AL — Ontwikkelend & automatiserend</div>
         </footer>
     </div>
 
@@ -241,7 +253,7 @@
             products.forEach((p, i) => {
                 const card = document.createElement('div');
                 card.className = `product-card ${p.type === 'qr' ? 'qr' : p.type === 'kiosk' ? 'kiosk' : 'pro'}`;
-                card.style.animationDelay = `${i * 0.1}s`; // mooie fade-in stagger
+                card.style.animationDelay = `${i * 0.1}s`;
 
                 card.innerHTML = `
                         <img class="product-img" src="${p.image}" alt="${p.naam}" />
