@@ -7,7 +7,6 @@
     <style>
         :root {
             --accent: #2563eb;
-            --accent-glow: rgba(37, 99, 235, 0.6);
             --bg: #0f172a;
             --card: #0b1220;
             --muted: #94a3b8;
@@ -26,7 +25,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 32px auto;
             padding: 24px;
             animation: fadeIn 0.8s ease forwards;
@@ -78,8 +77,12 @@
             transition: color 0.3s;
         }
 
-        nav a:hover {
-            color: white;
+            nav a:hover {
+                color: white;
+            }
+
+        .hero h2 {
+            margin-bottom: 6px;
         }
 
         .card {
@@ -91,8 +94,8 @@
         }
 
         .product-grid {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 22px;
             margin-top: 24px;
         }
@@ -111,45 +114,48 @@
             animation: fadeUp 0.5s ease forwards;
         }
 
-        .product-card.qr { border-left: 4px solid var(--accent); }
-        .product-card.kiosk { border-left: 4px solid var(--kiosk); }
-        .product-card.pro { border-left: 4px solid var(--pro); }
+            .product-card.qr {
+                border-top: 4px solid var(--accent);
+            }
 
-        .product-card:hover {
-            transform: translateY(-4px);
-            background: rgba(255,255,255,0.08);
-        }
+            .product-card.kiosk {
+                border-top: 4px solid var(--kiosk);
+            }
+
+            .product-card.pro {
+                border-top: 4px solid var(--pro);
+            }
+
+            .product-card:hover {
+                transform: translateY(-6px) scale(1.02);
+                background: rgba(255,255,255,0.08);
+            }
 
         img.product-img {
             width: 100%;
             border-radius: 12px;
             margin-bottom: 12px;
             object-fit: cover;
-            height: 220px;
+            height: 180px;
         }
 
         .btn {
             display: inline-block;
-            padding: 12px 18px;
-            border-radius: 10px;
+            padding: 10px 16px;
+            border-radius: 8px;
             background: var(--accent);
             color: white;
             text-decoration: none;
-            transition: 0.3s;
+            transition: 0.2s;
             border: none;
             font-size: 15px;
-            font-weight: 600;
-            margin-top: 16px;
-            align-self: flex-start;
-            box-shadow: 0 0 15px var(--accent-glow);
-            animation: glowPulse 2s infinite alternate;
+            margin-top: auto;
         }
 
-        .btn:hover {
-            transform: translateY(-2px) scale(1.03);
-            background: #1d4ed8;
-            box-shadow: 0 0 25px var(--accent-glow);
-        }
+            .btn:hover {
+                transform: translateY(-2px);
+                background: #1d4ed8;
+            }
 
         footer {
             margin-top: 40px;
@@ -160,21 +166,24 @@
 
         /* Animaties */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes glowPulse {
             from {
-                box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+                opacity: 0;
+                transform: translateY(20px);
             }
+
             to {
-                box-shadow: 0 0 25px var(--accent-glow), 0 0 45px var(--accent-glow);
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
@@ -232,17 +241,17 @@
             products.forEach((p, i) => {
                 const card = document.createElement('div');
                 card.className = `product-card ${p.type === 'qr' ? 'qr' : p.type === 'kiosk' ? 'kiosk' : 'pro'}`;
-                card.style.animationDelay = `${i * 0.1}s`;
+                card.style.animationDelay = `${i * 0.1}s`; // mooie fade-in stagger
 
                 card.innerHTML = `
-                    <img class="product-img" src="${p.image}" alt="${p.naam}" />
-                    <h3>${p.naam}</h3>
-                    <p class="muted">${p.prijs.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })}</p>
-                    <ul class="features" style="list-style:none; padding-left:0; color: var(--muted); margin:12px 0;">
-                        ${p.features.map(f => `<li>✔ ${f}</li>`).join('')}
-                    </ul>
-                    <button class="btn">Bekijk product</button>
-                `;
+                        <img class="product-img" src="${p.image}" alt="${p.naam}" />
+                        <h3>${p.naam}</h3>
+                        <p class="muted">${p.prijs.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })}</p>
+                        <ul class="features" style="list-style:none; padding-left:0; color: var(--muted); margin:12px 0;">
+                            ${p.features.map(f => `<li>✔ ${f}</li>`).join('')}
+                        </ul>
+                        <button class="btn">Bekijk product</button>
+                    `;
 
                 card.querySelector('.btn').addEventListener('click', () => {
                     window.location.href = `https://oalogica-site.vercel.app/bestellen.html?productId=${p._id}`;
