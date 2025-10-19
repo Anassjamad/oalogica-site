@@ -3,37 +3,40 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bestellen — OA Logica</title>
+    <title>Offerte Aanvragen — OA Logica</title>
     <style>
         :root {
             --accent: #2563eb;
-            --bg: #0f172a;
-            --card: #0b1220;
+            --accent-glow: rgba(37,99,235,0.3);
+            --bg: #0a0f1f;
+            --card: rgba(255,255,255,0.04);
             --muted: #94a3b8;
-            --basic: #22c55e;
-            --kiosk: #f59e0b;
-            --pro: #7c3aed;
+            --text: #e6eef8;
+            --radius: 16px;
+            --shadow: 0 8px 24px rgba(0,0,0,0.35);
         }
 
         body {
             margin: 0;
-            font-family: Inter,sans-serif;
-            background: var(--bg);
-            color: #e6eef8;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg,#071022 0%,#0a1735 80%);
+            color: var(--text);
         }
 
         .container {
-            max-width: 800px;
+            max-width: 700px;
             margin: 40px auto;
-            padding: 20px;
+            padding: 24px;
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        h1 {
-            margin-bottom: 12px;
-        }
-
-        h2 {
-            margin-top: 24px;
+        header h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg,var(--accent),#7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            margin-bottom: 24px;
         }
 
         .product-header {
@@ -41,114 +44,115 @@
             align-items: center;
             gap: 20px;
             background: var(--card);
-            border-radius: 12px;
+            border-radius: var(--radius);
             padding: 16px;
-            margin-bottom: 24px;
-            box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            animation: fadeUp 0.6s ease forwards;
         }
 
             .product-header img {
                 width: 120px;
                 height: 80px;
-                border-radius: 8px;
                 object-fit: cover;
+                border-radius: 12px;
             }
 
-        .step {
-            display: none;
-        }
-
-            .step.active {
-                display: block;
-            }
-
-        label {
+        form label {
             display: block;
             margin-top: 16px;
+            font-weight: 500;
         }
 
-        input, select, textarea {
+        form input, form textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 6px;
-            border-radius: 6px;
+            border-radius: 8px;
             border: none;
             background: #1e293b;
             color: white;
+            font-size: 1rem;
         }
 
-        button {
+        form button {
             margin-top: 24px;
-            padding: 12px 20px;
-            background: var(--accent);
+            padding: 14px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            background: linear-gradient(90deg,var(--accent),#7c3aed);
             color: white;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-glow);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-            button:hover {
-                opacity: 0.9;
+            form button:hover {
+                transform: translateY(-2px) scale(1.02);
+                box-shadow: 0 0 20px var(--accent-glow);
             }
 
-        .summary {
+        #formMessage {
             margin-top: 16px;
-            background: #0b1220;
-            padding: 12px;
-            border-radius: 8px;
+            font-weight: 600;
+            color: #22c55e;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="productInfo" class="product-header" style="display:none;">
+        <header>
+            <h1>Offerte Aanvragen</h1>
+        </header>
+
+        <div class="product-header" id="productInfo" style="display:none;">
             <img id="productImage" src="" alt="Product">
             <div>
-                <h1 id="productName"></h1>
+                <h2 id="productName"></h2>
                 <p id="productPrice" class="muted"></p>
             </div>
         </div>
 
-        <div id="step1" class="step active">
-            <h2>Stap 1: Kiosk</h2>
-            <label for="kioskType">Kies type:</label>
-            <select id="kioskType">
-                <option value="Basis" data-price="54.45">Basis (€54,45)</option>
-                <option value="Pro" data-price="69.95">Pro (€69,95) + support</option>
-            </select>
-            <label for="kioskAantal">Aantal kiosken:</label>
-            <input type="number" id="kioskAantal" value="1" min="1">
-            <button id="next1">Volgende</button>
-        </div>
-
-        <div id="step2" class="step">
-            <h2>Stap 2: Integratie</h2>
-            <label for="integratieOptie">Kies een optie:</label>
-            <select id="integratieOptie">
-                <option value="Simpele pagina" data-price="0">Simpele pagina (gratis)</option>
-                <option value="Offerte" data-price="0">Vraag een offerte op</option>
-                <option value="Ons kassa systeem" data-price="605">Gebruik ons kassa systeem (€605)</option>
-            </select>
-            <button id="back2">Terug</button>
-            <button id="next2">Volgende</button>
-        </div>
-
-        <div id="step3" class="step">
-            <h2>Stap 3: Gegevens</h2>
-            <label for="naam">Naam</label>
+        <form id="offerForm">
+            <label for="naam">Naam *</label>
             <input type="text" id="naam" required placeholder="Jouw naam">
-            <label for="email">Email</label>
+
+            <label for="email">Email *</label>
             <input type="email" id="email" required placeholder="Jouw email">
-            <label for="telefoon">Telefoonnummer</label>
+
+            <label for="telefoon">Telefoon</label>
             <input type="tel" id="telefoon" placeholder="Optioneel">
+
             <label for="opmerking">Opmerking</label>
-            <textarea id="opmerking" placeholder="Eventuele extra opmerkingen"></textarea>
-            <div class="summary" id="orderSummary"></div>
-            <button id="back3">Terug</button>
-            <button id="submitOrder">Bestel</button>
-            <div id="formMessage" style="margin-top:12px;color:#22c55e;font-weight:600;"></div>
-        </div>
+            <textarea id="opmerking" rows="5" placeholder="Eventuele extra opmerkingen"></textarea>
+
+            <button type="submit">Vraag Offerte Aan</button>
+            <div id="formMessage"></div>
+        </form>
     </div>
 
     <script>
@@ -156,10 +160,8 @@
         let selectedProduct = null;
         const productId = new URLSearchParams(window.location.search).get('productId');
 
-        // Als er geen productId is → redirect
-        if (!productId) {
-            window.location.href = 'producten.html';
-        }
+        // Redirect als er geen productId is
+        if (!productId) window.location.href = 'producten.html';
 
         // Product ophalen
         async function fetchProduct() {
@@ -168,13 +170,11 @@
                 const products = await res.json();
                 selectedProduct = products.find(p => p._id === productId);
 
-                // Als er geen product gevonden wordt → redirect
                 if (!selectedProduct) {
                     window.location.href = 'producten.html';
                     return;
                 }
 
-                // Toon product info bovenaan
                 document.getElementById('productInfo').style.display = 'flex';
                 document.getElementById('productName').textContent = selectedProduct.naam;
                 document.getElementById('productImage').src = selectedProduct.image;
@@ -187,51 +187,14 @@
         }
         fetchProduct();
 
-        // Navigatie tussen stappen
-        document.getElementById('next1').addEventListener('click', () => {
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-        });
-        document.getElementById('back2').addEventListener('click', () => {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step1').classList.add('active');
-        });
-        document.getElementById('next2').addEventListener('click', () => {
-            updateSummary();
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.add('active');
-        });
-        document.getElementById('back3').addEventListener('click', () => {
-            document.getElementById('step3').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-        });
+        // Offerte formulier
+        document.getElementById('offerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        // Samenvatting bijwerken
-        function updateSummary() {
-            const type = document.getElementById('kioskType');
-            const aantal = document.getElementById('kioskAantal').value;
-            const integratie = document.getElementById('integratieOptie');
-
-            const typePrijs = parseFloat(type.selectedOptions[0].dataset.price);
-            const integratiePrijs = parseFloat(integratie.selectedOptions[0].dataset.price);
-            const totaal = (typePrijs * aantal) + integratiePrijs;
-
-            document.getElementById('orderSummary').innerHTML = `
-            <strong>Product:</strong> ${selectedProduct.naam} <br>
-            <strong>Kiosk:</strong> ${type.value} × ${aantal} <br>
-            <strong>Integratie:</strong> ${integratie.value} <br>
-            <strong>Totaal:</strong> €${totaal.toFixed(2)}
-        `;
-        }
-
-        // Bestelling verzenden
-        document.getElementById('submitOrder').addEventListener('click', async () => {
             const naam = document.getElementById('naam').value;
             const email = document.getElementById('email').value;
             const telefoon = document.getElementById('telefoon').value;
             const opmerking = document.getElementById('opmerking').value;
-            const quantity = parseInt(document.getElementById('kioskAantal').value);
-            const integratie = document.getElementById('integratieOptie').value;
 
             if (!naam || !email) {
                 alert('Naam en email zijn verplicht.');
@@ -243,9 +206,7 @@
                 email,
                 telefoon,
                 opmerking,
-                productId: selectedProduct._id,
-                quantity,
-                integratie
+                productId: selectedProduct._id
             };
 
             try {
@@ -255,7 +216,8 @@
                     body: JSON.stringify(payload)
                 });
                 const data = await res.json();
-                document.getElementById('formMessage').textContent = data.message || '✅ Bestelling geplaatst!';
+                document.getElementById('formMessage').textContent = data.message || '✅ Offerte aangevraagd!';
+                document.getElementById('offerForm').reset();
             } catch (err) {
                 console.error(err);
                 document.getElementById('formMessage').textContent = '⛔ Er is iets misgegaan.';

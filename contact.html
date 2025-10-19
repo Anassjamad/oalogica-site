@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>OA Logica — Contact</title>
+    <style>
+        :root {
+            --accent: #2563eb;
+            --accent-glow: rgba(37,99,235,0.3);
+            --bg: #0a0f1f;
+            --card: rgba(255,255,255,0.04);
+            --muted: #94a3b8;
+            --text: #e2e8f0;
+            --radius: 16px;
+            --shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(180deg,#071022 0%,#0a1735 80%);
+            color: var(--text);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 32px 24px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg,var(--accent),#7c3aed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin: 0;
+            background: linear-gradient(90deg, var(--accent), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--muted);
+            margin-left: 24px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+            nav a:hover {
+                color: var(--accent);
+            }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+            .card:hover {
+                background: rgba(255,255,255,0.06);
+                transform: translateY(-3px);
+            }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .lead {
+            color: var(--muted);
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        input, textarea {
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.08);
+            color: var(--text);
+            transition: all 0.2s;
+        }
+
+            input:focus, textarea:focus {
+                background: rgba(255,255,255,0.12);
+                box-shadow: 0 0 8px var(--accent-glow);
+            }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg,var(--accent),#7c3aed);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-glow);
+            border: none;
+        }
+
+            .btn:hover {
+                transform: translateY(-2px) scale(1.03);
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 20px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        /* Subtiele hover op links in info */
+        .info a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+            .info a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="logo">O&AL</div>
+                <div>
+                    <h1>OAL</h1>
+                    <div class="tagline">Ontwikkelend & Automatiserend — innovatieve horecaoplossingen</div>
+                </div>
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="producten.html">Producten</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="card">
+                <h2>Neem contact op</h2>
+                <p class="lead">Heb je vragen, wil je een demo of een offerte ontvangen? Vul het formulier hieronder in en wij nemen zo snel mogelijk contact op.</p>
+                <form id="contactForm">
+                    <input type="text" name="naam" placeholder="Naam" required />
+                    <input type="email" name="email" placeholder="E-mail" required />
+                    <input type="tel" name="telefoon" placeholder="Telefoon" />
+                    <textarea name="bericht" placeholder="Bericht" required></textarea>
+                    <button type="submit" class="btn">Verstuur bericht</button>
+                </form>
+
+                <div class="info">
+                    <div>Email: <a href="mailto:info@oalogica.nl">info@oalogica.nl</a></div>
+                    <div>Telefoon: 06-86065834</div>
+                    <div>Locatie: Utrecht, Nederland</div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            © 2025 OA Logica — Ontwikkelend & Automatiserend
+        </footer>
+    </div>
+
+    <script>
+    // Simple frontend form handling (kan later POSTen naar backend /oa-logica/contact)
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      try {
+        // Vervang URL door jouw backend endpoint als je wilt dat het formulier mailt
+        const res = await fetch('https://bestel-backend.onrender.com/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        alert(result.message || "Bedankt! We nemen contact met je op.");
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        alert("Er is iets misgegaan bij het verzenden. Probeer opnieuw.");
+      }
+    });
+    </script>
+</body>
+</html>
